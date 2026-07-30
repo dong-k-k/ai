@@ -1,0 +1,17 @@
+{
+  "stat_code": "731Y001",
+  "stat_name": "3.1.1.1. 주요국 통화의 대원화환율",
+  "cycle": "D",
+  "item_code": "0000001",
+  "item_name": "원/미국달러(매매기준율)",
+  "verification": {
+    "success": true,
+    "sample_time": "20260504",
+    "sample_value": "1484.8",
+    "stat_code": "731Y001",
+    "item_code": "0000001",
+    "stat_name": "3.1.1.1. 주요국 통화의 대원화환율",
+    "item_name": "원/미국달러(매매기준율)"
+  },
+  "source": "Bank of Korea ECOS Open API"
+}

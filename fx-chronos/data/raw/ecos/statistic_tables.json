@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "CYCLE": "D",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "서울외국환중개",
+      "priority_score": 190
+    },
+    {
+      "STAT_CODE": "731Y002",
+      "STAT_NAME": "3.1.1.2. 주요국 통화의 대미달러환율",
+      "CYCLE": "D",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "서울외국환중개",
+      "priority_score": 120
+    },
+    {
+      "STAT_CODE": "731Y003",
+      "STAT_NAME": "3.1.1.3. 원화의 대미달러, 원화의 대위안/대엔 환율",
+      "CYCLE": "D",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "한국은행",
+      "priority_score": 105
+    },
+    {
+      "STAT_CODE": "731Y004",
+      "STAT_NAME": "3.1.2.1. 주요국 통화의 대원화환율",
+      "CYCLE": "M",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "한국은행",
+      "priority_score": 90
+    },
+    {
+      "STAT_CODE": "731Y005",
+      "STAT_NAME": "3.1.2.2. 주요국 통화의 대미달러환율",
+      "CYCLE": "M",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "한국은행",
+      "priority_score": 20
+    },
+    {
+      "STAT_CODE": "0000000176",
+      "STAT_NAME": "3. 환율/통관수출입/외환보유액",
+      "CYCLE": null,
+      "SRCH_YN": "N",
+      "ORG_NAME": null,
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "0000000177",
+      "STAT_NAME": "3.1. 환율",
+      "CYCLE": null,
+      "SRCH_YN": "N",
+      "ORG_NAME": null,
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "0000000178",
+      "STAT_NAME": "3.1.1. 일일환율",
+      "CYCLE": null,
+      "SRCH_YN": "N",
+      "ORG_NAME": null,
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "0000000182",
+      "STAT_NAME": "3.1.2. 평균환율/기말환율",
+      "CYCLE": null,
+      "SRCH_YN": "N",
+      "ORG_NAME": null,
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "731Y006",
+      "STAT_NAME": "3.1.2.3. 원화의 대미달러, 원화의 대위안/대엔 환율",
+      "CYCLE": "M",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "한국은행",
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "0000000704",
+      "STAT_NAME": "9.2.3. 북한의 시장물가와 환율",
+      "CYCLE": null,
+      "SRCH_YN": "N",
+      "ORG_NAME": null,
+      "priority_score": 5
+    },
+    {
+      "STAT_CODE": "252Y002",
+      "STAT_NAME": "9.2.3.2. 시장환율",
+      "CYCLE": "Q",
+      "SRCH_YN": "Y",
+      "ORG_NAME": "한국은행",
+      "priority_score": 5
+    }
+  ]
+}

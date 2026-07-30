@@ -1,0 +1,2 @@
+STAT_CODE,STAT_NAME,CYCLE,ITEM_CODE,ITEM_NAME,SELECTION,JUDGMENT_REASON
+731Y001,3.1.1.1. 주요국 통화의 대원화환율,D,0000001,원/미국달러(매매기준율),YES,Matched USD/KRW-like item and verified with StatisticSearch

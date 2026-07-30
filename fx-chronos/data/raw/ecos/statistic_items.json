@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000001",
+      "ITEM_NAME": "원/미국달러(매매기준율)",
+      "score": 10
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000053",
+      "ITEM_NAME": "원/위안(매매기준율)",
+      "score": 2
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000026",
+      "ITEM_NAME": "원/뉴질랜드달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000031",
+      "ITEM_NAME": "원/대만달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000036",
+      "ITEM_NAME": "원/브루나이달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000024",
+      "ITEM_NAME": "원/싱가포르달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000013",
+      "ITEM_NAME": "원/캐나다달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000017",
+      "ITEM_NAME": "원/호주달러",
+      "score": 0
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "ITEM_CODE": "0000015",
+      "ITEM_NAME": "원/홍콩달러",
+      "score": 0
+    }
+  ]
+}
