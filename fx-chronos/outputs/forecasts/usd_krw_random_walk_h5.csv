@@ -1,6 +1,0 @@
-forecast_step,weekday_date,random_walk_forecast,forecast_origin_date,forecast_origin_value,model_id,history_rows
-1,2026-07-31,1450.1,2026-07-30,1450.1,random_walk_last_observation,15405
-2,2026-08-03,1450.1,2026-07-30,1450.1,random_walk_last_observation,15405
-3,2026-08-04,1450.1,2026-07-30,1450.1,random_walk_last_observation,15405
-4,2026-08-05,1450.1,2026-07-30,1450.1,random_walk_last_observation,15405
-5,2026-08-06,1450.1,2026-07-30,1450.1,random_walk_last_observation,15405
