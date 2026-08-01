@@ -1,0 +1,64 @@
+{
+  "currency_pair": "USD/KRW",
+  "side": "payment",
+  "settlement_date": "2026-07-30",
+  "foreign_amount": 1000000.0,
+  "hedged_amount": 500000.0,
+  "unhedged_amount": 500000.0,
+  "hedge_ratio": 0.5,
+  "risk_direction": "환율 상승 시 원화 지급액 증가로 불리",
+  "forecast_model_name": "Random Walk + Chronos-2 shrunk ensemble alpha=0.5",
+  "scenario_source": "shrunk_ensemble",
+  "scenarios": [
+    {
+      "scenario_name": "point",
+      "fx_rate": 1549.924853515625,
+      "hedged_krw_amount": 774200000.0,
+      "unhedged_krw_amount": 774962426.7578125,
+      "total_krw_amount": 1549162426.7578125,
+      "fully_unhedged_krw_amount": 1549924853.515625,
+      "reference_krw_amount": 1548400000.0,
+      "favorable_pnl_vs_reference_krw": -762426.7578125,
+      "hedge_effect_vs_unhedged_krw": 762426.7578125
+    },
+    {
+      "scenario_name": "lower",
+      "fx_rate": 1508.36328125,
+      "hedged_krw_amount": 774200000.0,
+      "unhedged_krw_amount": 754181640.625,
+      "total_krw_amount": 1528381640.625,
+      "fully_unhedged_krw_amount": 1508363281.25,
+      "reference_krw_amount": 1548400000.0,
+      "favorable_pnl_vs_reference_krw": 20018359.375,
+      "hedge_effect_vs_unhedged_krw": -20018359.375
+    },
+    {
+      "scenario_name": "median",
+      "fx_rate": 1551.44970703125,
+      "hedged_krw_amount": 774200000.0,
+      "unhedged_krw_amount": 775724853.515625,
+      "total_krw_amount": 1549924853.515625,
+      "fully_unhedged_krw_amount": 1551449707.03125,
+      "reference_krw_amount": 1548400000.0,
+      "favorable_pnl_vs_reference_krw": -1524853.515625,
+      "hedge_effect_vs_unhedged_krw": 1524853.515625
+    },
+    {
+      "scenario_name": "upper",
+      "fx_rate": 1595.554443359375,
+      "hedged_krw_amount": 774200000.0,
+      "unhedged_krw_amount": 797777221.6796875,
+      "total_krw_amount": 1571977221.6796875,
+      "fully_unhedged_krw_amount": 1595554443.359375,
+      "reference_krw_amount": 1548400000.0,
+      "favorable_pnl_vs_reference_krw": -23577221.6796875,
+      "hedge_effect_vs_unhedged_krw": 23577221.6796875
+    }
+  ],
+  "warnings": [
+    "점 예측은 alpha=0.5 축소 앙상블이며 하한·중앙·상한은 Chronos-2 참고용 분위수입니다. 2026년 평가는 기준일 7개의 소표본이고 과거 예측구간 포함률이 목표에 미달했으므로 확정적 신뢰구간으로 해석하지 않습니다.",
+    "은행 스프레드, 환전 수수료, 세금 및 실제 헤지 상품 조건은 포함하지 않습니다.",
+    "이 계산은 금융상품 또는 최적 헤지 비율을 추천하지 않습니다."
+  ],
+  "example_only": true
+}

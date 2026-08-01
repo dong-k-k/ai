@@ -13,8 +13,10 @@ OUTPUT_DIR = Path(__file__).resolve().parent.parent / "outputs" / "forecasts"
 MODEL_ID = "amazon/chronos-2"
 HORIZON = 20
 EXPANSION_HORIZONS = (60,)
+MONTHLY_HORIZONS = (20,)
 CONTEXT_LENGTH = 8192
 BATCH_SIZE = 8
+ORIGIN_CHUNK_SIZE = 24
 REQUESTED_ORIGINS = [
     "1997-11-03",
     "2008-09-01",
@@ -31,6 +33,16 @@ def build_semiannual_origins(start_year: int, end_year: int) -> list[str]:
     origins: list[str] = []
     for year in range(start_year, end_year + 1):
         origins.extend([f"{year}-01-02", f"{year}-07-01"])
+    return origins
+
+
+def build_monthly_origins(start_year: int, end_year: int) -> list[str]:
+    """Build one requested forecast origin at the first calendar day of each month."""
+    if start_year > end_year:
+        raise ValueError("start_year는 end_year보다 늦을 수 없습니다.")
+    origins: list[str] = []
+    for year in range(start_year, end_year + 1):
+        origins.extend(f"{year}-{month:02d}-01" for month in range(1, 13))
     return origins
 
 
@@ -77,75 +89,91 @@ def run_walk_forward_backtest(
     horizon: int,
     context_length: int,
     batch_size: int = 256,
+    origin_chunk_size: int | None = None,
 ) -> pd.DataFrame:
     """Forecast multiple historical origins without using observations after each origin."""
-    origin_indices = [resolve_origin_index(df, origin, horizon) for origin in requested_origins]
-    model_inputs = [
-        df.loc[:origin_index, "value"].to_numpy(dtype=np.float32)
-        for origin_index in origin_indices
-    ]
-    predictions = pipeline.predict(
-        model_inputs,
-        prediction_length=horizon,
-        batch_size=batch_size,
-        context_length=context_length,
-        cross_learning=False,
-    )
-    if len(predictions) != len(origin_indices):
-        raise RuntimeError(
-            f"예측 결과 수가 기준일 수와 다릅니다: 예측={len(predictions)}, 기준일={len(origin_indices)}"
-        )
+    if origin_chunk_size is None:
+        origin_chunk_size = len(requested_origins)
+    if origin_chunk_size <= 0:
+        raise ValueError("origin_chunk_size는 1 이상이어야 합니다.")
 
+    origin_indices = [resolve_origin_index(df, origin, horizon) for origin in requested_origins]
     quantile_levels = [float(level) for level in pipeline.quantiles]
     q10_index = find_quantile_index(quantile_levels, 0.1)
     q50_index = find_quantile_index(quantile_levels, 0.5)
     q90_index = find_quantile_index(quantile_levels, 0.9)
     records: list[dict[str, object]] = []
 
-    for requested_origin, origin_index, prediction in zip(
-        requested_origins,
-        origin_indices,
-        predictions,
-        strict=True,
-    ):
-        forecast = prediction.detach().cpu().numpy()
-        expected_shape = (1, len(quantile_levels), horizon)
-        if forecast.shape != expected_shape:
-            raise RuntimeError(f"예상하지 못한 예측 shape: 실제={forecast.shape}, 예상={expected_shape}")
-
-        q10 = forecast[0, q10_index, :]
-        q50 = forecast[0, q50_index, :]
-        q90 = forecast[0, q90_index, :]
-        if not np.all((q10 <= q50) & (q50 <= q90)):
-            raise RuntimeError(f"분위수 순서가 올바르지 않습니다: {requested_origin}")
-
-        history = df.loc[:origin_index, "value"].astype(float)
-        origin_date = pd.Timestamp(df.loc[origin_index, "date"])
-        origin_value = float(df.loc[origin_index, "value"])
-        actual_future = df.iloc[origin_index + 1 : origin_index + horizon + 1]
-        mase_scale = float(history.diff().abs().dropna().mean())
-        if not np.isfinite(mase_scale) or mase_scale <= 0:
-            raise RuntimeError(f"MASE 분모를 계산할 수 없습니다: {requested_origin}")
-
-        for step, (_, actual_row) in enumerate(actual_future.iterrows(), start=1):
-            records.append(
-                {
-                    "requested_origin": requested_origin,
-                    "forecast_origin_date": origin_date.date().isoformat(),
-                    "forecast_origin_value": origin_value,
-                    "forecast_step": step,
-                    "target_date": pd.Timestamp(actual_row["date"]).date().isoformat(),
-                    "actual_value": float(actual_row["value"]),
-                    "chronos_q0.1_lower": float(q10[step - 1]),
-                    "chronos_q0.5_median": float(q50[step - 1]),
-                    "chronos_q0.9_upper": float(q90[step - 1]),
-                    "random_walk_forecast": origin_value,
-                    "history_rows": origin_index + 1,
-                    "context_length": min(context_length, origin_index + 1),
-                    "mase_scale_training_only": mase_scale,
-                    "model_id": MODEL_ID,
-                }
+    for chunk_start in range(0, len(requested_origins), origin_chunk_size):
+        chunk_origins = requested_origins[chunk_start : chunk_start + origin_chunk_size]
+        chunk_indices = origin_indices[chunk_start : chunk_start + origin_chunk_size]
+        model_inputs = [
+            df.loc[:origin_index, "value"].to_numpy(dtype=np.float32)
+            for origin_index in chunk_indices
+        ]
+        predictions = pipeline.predict(
+            model_inputs,
+            prediction_length=horizon,
+            batch_size=batch_size,
+            context_length=context_length,
+            cross_learning=False,
+        )
+        if len(predictions) != len(chunk_indices):
+            raise RuntimeError(
+                "예측 결과 수가 현재 기준일 묶음의 수와 다릅니다: "
+                f"예측={len(predictions)}, 기준일={len(chunk_indices)}"
             )
+
+        print(
+            f"Forecasted origins {chunk_start + 1}~"
+            f"{chunk_start + len(chunk_origins)} / {len(requested_origins)}"
+        )
+        for requested_origin, origin_index, prediction in zip(
+            chunk_origins,
+            chunk_indices,
+            predictions,
+            strict=True,
+        ):
+            forecast = prediction.detach().cpu().numpy()
+            expected_shape = (1, len(quantile_levels), horizon)
+            if forecast.shape != expected_shape:
+                raise RuntimeError(
+                    f"예상하지 못한 예측 shape: 실제={forecast.shape}, 예상={expected_shape}"
+                )
+
+            q10 = forecast[0, q10_index, :]
+            q50 = forecast[0, q50_index, :]
+            q90 = forecast[0, q90_index, :]
+            if not np.all((q10 <= q50) & (q50 <= q90)):
+                raise RuntimeError(f"분위수 순서가 올바르지 않습니다: {requested_origin}")
+
+            history = df.loc[:origin_index, "value"].astype(float)
+            origin_date = pd.Timestamp(df.loc[origin_index, "date"])
+            origin_value = float(df.loc[origin_index, "value"])
+            actual_future = df.iloc[origin_index + 1 : origin_index + horizon + 1]
+            mase_scale = float(history.diff().abs().dropna().mean())
+            if not np.isfinite(mase_scale) or mase_scale <= 0:
+                raise RuntimeError(f"MASE 분모를 계산할 수 없습니다: {requested_origin}")
+
+            for step, (_, actual_row) in enumerate(actual_future.iterrows(), start=1):
+                records.append(
+                    {
+                        "requested_origin": requested_origin,
+                        "forecast_origin_date": origin_date.date().isoformat(),
+                        "forecast_origin_value": origin_value,
+                        "forecast_step": step,
+                        "target_date": pd.Timestamp(actual_row["date"]).date().isoformat(),
+                        "actual_value": float(actual_row["value"]),
+                        "chronos_q0.1_lower": float(q10[step - 1]),
+                        "chronos_q0.5_median": float(q50[step - 1]),
+                        "chronos_q0.9_upper": float(q90[step - 1]),
+                        "random_walk_forecast": origin_value,
+                        "history_rows": origin_index + 1,
+                        "context_length": min(context_length, origin_index + 1),
+                        "mase_scale_training_only": mase_scale,
+                        "model_id": MODEL_ID,
+                    }
+                )
 
     return pd.DataFrame.from_records(records)
 
@@ -153,16 +181,16 @@ def run_walk_forward_backtest(
 def main() -> None:
     input_path = PROCESSED_DIR / "usd_krw_model_weekdays_19640504_20260730.csv"
     output_paths = {
-        horizon: OUTPUT_DIR / f"usd_krw_walk_forward_h{horizon}_semiannual_1997_2025.csv"
-        for horizon in EXPANSION_HORIZONS
+        horizon: OUTPUT_DIR / f"usd_krw_walk_forward_h{horizon}_monthly_1997_2025.csv"
+        for horizon in MONTHLY_HORIZONS
     }
     for output_path in output_paths.values():
         if output_path.exists():
             raise FileExistsError(f"기존 백테스트 결과를 덮어쓰지 않습니다: {output_path}")
 
     df = load_model_data(input_path)
-    requested_origins = build_semiannual_origins(1997, 2025)
-    for horizon in EXPANSION_HORIZONS:
+    requested_origins = build_monthly_origins(1997, 2025)
+    for horizon in MONTHLY_HORIZONS:
         resolved_indices = [
             resolve_origin_index(df, requested_origin, horizon)
             for requested_origin in requested_origins
@@ -173,7 +201,7 @@ def main() -> None:
             )
 
     pipeline = Chronos2Pipeline.from_pretrained(MODEL_ID)
-    for horizon in EXPANSION_HORIZONS:
+    for horizon in MONTHLY_HORIZONS:
         result = run_walk_forward_backtest(
             pipeline,
             df,
@@ -181,6 +209,7 @@ def main() -> None:
             horizon=horizon,
             context_length=CONTEXT_LENGTH,
             batch_size=BATCH_SIZE,
+            origin_chunk_size=ORIGIN_CHUNK_SIZE,
         )
         output_path = output_paths[horizon]
         output_path.parent.mkdir(parents=True, exist_ok=True)

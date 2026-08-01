@@ -1,0 +1,118 @@
+{
+  "config_version": 1,
+  "model_id": "amazon/chronos-2",
+  "target": "USD/KRW",
+  "prediction_length": 20,
+  "data": {
+    "training_target_end": "2017-12-31",
+    "validation_target_start": "2018-01-01",
+    "validation_target_end": "2021-12-31",
+    "final_test_target_start": "2022-01-01",
+    "final_test_target_end": "2025-12-31",
+    "final_test_policy": "do not evaluate until one LoRA configuration is selected"
+  },
+  "hardware": {
+    "current_training_device": "mps",
+    "mps_intended": true,
+    "mps_status": "available_outside_sandbox",
+    "mps_verification": "with the existing Python 3.14.6 and PyTorch 2.13.0 environment, torch.backends.mps.is_available() is true and an MPS tensor was created successfully outside the Codex sandbox",
+    "mps_execution_rule": "run MPS training outside the restricted sandbox; keep CPU as the fallback if an unsupported MPS operation fails",
+    "device_benchmark": {
+      "context_length": 252,
+      "batch_size": 4,
+      "num_steps": 100,
+      "cpu_elapsed_seconds": 18.669671582989395,
+      "mps_elapsed_seconds": 8.708261083986145,
+      "mps_speedup_vs_cpu": 2.1439035190758755,
+      "selected_device_for_lora_candidates": "mps"
+    }
+  },
+  "paired_zero_shot_context_selection": {
+    "validation_only": true,
+    "context_length_candidates": [252, 504, 756, 1260, 8192],
+    "selection_metrics": [
+      "MAE",
+      "RMSE",
+      "origin_win_rate_vs_random_walk",
+      "interval_80_coverage",
+      "interval_mean_width"
+    ],
+    "selection_rule": "prefer a context that improves both MAE and RMSE; use shorter context when performance is effectively tied",
+    "selected_context_length": 756,
+    "selection_result": {
+      "chronos_mae": 11.968236,
+      "random_walk_mae": 12.259792,
+      "chronos_rmse": 15.724912,
+      "random_walk_rmse": 15.967171,
+      "mae_improvement_vs_random_walk_percent": 2.378142,
+      "rmse_improvement_vs_random_walk_percent": 1.517237,
+      "origin_mae_win_rate_vs_random_walk": 0.645833,
+      "origin_rmse_win_rate_vs_random_walk": 0.645833,
+      "interval_80_coverage": 0.736458,
+      "selection_reason": "context 756 and 1260 were effectively tied on overall MAE and RMSE; 756 is shorter and had slightly better interval coverage and origin-level RMSE win rate"
+    }
+  },
+  "lora": {
+    "peft_required": true,
+    "peft_version_range": ">=0.18.1,<1",
+    "rank": 8,
+    "alpha": 16,
+    "learning_rate_candidates": [0.00001, 0.00003],
+    "num_steps_candidates": [100, 300],
+    "batch_size": 4,
+    "min_past": 252,
+    "seed": 42,
+    "validation_only_for_selection": true,
+    "selection_order": [
+      "run 100 steps at learning rate 1e-5",
+      "run 100 steps at learning rate 3e-5 only if the first run is stable",
+      "extend the better stable learning rate to 300 steps",
+      "select one configuration without viewing final-test metrics"
+    ],
+    "selected_candidate": {
+      "name": "chronos2_lora_h20_ctx756_lr1e-5_steps300_seed42",
+      "status": "final_test_completed",
+      "validation_lora_mae": 11.960761,
+      "validation_zero_shot_mae": 11.968236,
+      "validation_random_walk_mae": 12.259792,
+      "validation_lora_rmse": 15.717706,
+      "validation_zero_shot_rmse": 15.724912,
+      "validation_random_walk_rmse": 15.967171,
+      "mae_improvement_vs_zero_shot_percent": 0.06246,
+      "rmse_improvement_vs_zero_shot_percent": 0.045822,
+      "mae_improvement_vs_random_walk_percent": 2.439116,
+      "rmse_improvement_vs_random_walk_percent": 1.562364,
+      "interval_80_coverage": 0.728125,
+      "selection_note": "best point metrics among the pre-registered LoRA candidates, but the improvement over paired zero-shot is too small to claim meaningful superiority",
+      "final_test_result": {
+        "evaluated_once": true,
+        "lora_mae": 21.332315,
+        "zero_shot_mae": 21.317311,
+        "random_walk_mae": 20.757292,
+        "lora_rmse": 29.36727,
+        "zero_shot_rmse": 29.330871,
+        "random_walk_rmse": 28.483502,
+        "mae_improvement_vs_zero_shot_percent": -0.070383,
+        "rmse_improvement_vs_zero_shot_percent": -0.124098,
+        "mae_improvement_vs_random_walk_percent": -2.770222,
+        "rmse_improvement_vs_random_walk_percent": -3.102735,
+        "passes_point_success_criteria": false,
+        "conclusion": "the selected LoRA candidate did not generalize better than paired zero-shot or Random Walk; do not revise the candidate using final-test results"
+      }
+    }
+  },
+  "success_criteria": {
+    "validation": [
+      "MAE below zero-shot with the same context length",
+      "RMSE below zero-shot with the same context length",
+      "MAE below Random Walk",
+      "RMSE below Random Walk",
+      "improvement is not driven by only a few forecast origins"
+    ],
+    "final_test": [
+      "evaluate exactly once after selection",
+      "compare against paired zero-shot and Random Walk",
+      "report failures without revising the selected configuration from test results"
+    ]
+  }
+}

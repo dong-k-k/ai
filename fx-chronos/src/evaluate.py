@@ -42,6 +42,9 @@ def calculate_metrics(group: pd.DataFrame) -> dict[str, float | int]:
         (actual >= group["chronos_q0.1_lower"])
         & (actual <= group["chronos_q0.9_upper"])
     )
+    pinball_q01 = pinball_loss(actual, group["chronos_q0.1_lower"], 0.1)
+    pinball_q05 = pinball_loss(actual, group["chronos_q0.5_median"], 0.5)
+    pinball_q09 = pinball_loss(actual, group["chronos_q0.9_upper"], 0.9)
 
     return {
         "rows": len(group),
@@ -53,9 +56,10 @@ def calculate_metrics(group: pd.DataFrame) -> dict[str, float | int]:
         "random_walk_mase": float((baseline_error.abs() / scale).mean()),
         "chronos_direction_accuracy": float(np.mean(chronos_direction == actual_direction)),
         "random_walk_direction_accuracy": float(np.mean(baseline_direction == actual_direction)),
-        "pinball_q0.1": pinball_loss(actual, group["chronos_q0.1_lower"], 0.1),
-        "pinball_q0.5": pinball_loss(actual, group["chronos_q0.5_median"], 0.5),
-        "pinball_q0.9": pinball_loss(actual, group["chronos_q0.9_upper"], 0.9),
+        "pinball_q0.1": pinball_q01,
+        "pinball_q0.5": pinball_q05,
+        "pinball_q0.9": pinball_q09,
+        "mean_pinball_loss": float(np.mean([pinball_q01, pinball_q05, pinball_q09])),
         "interval_80_coverage": float(interval_covered.mean()),
         "interval_mean_width": float(
             (group["chronos_q0.9_upper"] - group["chronos_q0.1_lower"]).mean()
@@ -143,28 +147,12 @@ def evaluate_backtest(backtest_path: Path, output_stem: str, horizon: int) -> pd
 
 def main() -> None:
     forecast_dir = Path(__file__).resolve().parent.parent / "outputs" / "forecasts"
-    comparison_path = OUTPUT_DIR / "usd_krw_walk_forward_horizon_comparison_5_20_30_60.csv"
-    if comparison_path.exists():
-        raise FileExistsError(f"기존 horizon 비교 결과를 덮어쓰지 않습니다: {comparison_path}")
-
-    h60_stem = "usd_krw_walk_forward_h60_semiannual_1997_2025"
-    h60_summary = evaluate_backtest(
-        forecast_dir / f"{h60_stem}.csv",
-        h60_stem,
-        horizon=60,
+    monthly_h20_stem = "usd_krw_walk_forward_h20_monthly_1997_2025"
+    evaluate_backtest(
+        forecast_dir / f"{monthly_h20_stem}.csv",
+        monthly_h20_stem,
+        horizon=20,
     )
-
-    summaries = [
-        pd.read_csv(
-            OUTPUT_DIR / f"usd_krw_walk_forward_h{horizon}_semiannual_1997_2025_summary.csv"
-        )
-        for horizon in (5, 20, 30)
-    ]
-    summaries.append(h60_summary)
-    comparison = pd.concat(summaries, ignore_index=True).sort_values("horizon").reset_index(drop=True)
-    save_without_overwrite(comparison, comparison_path)
-    print(f"Saved horizon comparison to {comparison_path}")
-    print(comparison.to_string(index=False))
 
 
 if __name__ == "__main__":

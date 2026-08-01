@@ -1,0 +1,41 @@
+{
+  "config_version": 1,
+  "target": "USD/KRW",
+  "model_input": "chronos-2 zero-shot context 756",
+  "prediction_length": 20,
+  "selection_split": "validation_2018_2021",
+  "alpha_candidates": [0.0, 0.1, 0.2, 0.3, 0.5],
+  "formula": "forecast_origin_value + alpha * (chronos_q0.5_median - forecast_origin_value)",
+  "selection_rule": {
+    "eligibility": "ensemble MAE and RMSE must both be less than or equal to Random Walk",
+    "score": "0.5 * (ensemble_MAE / Random_Walk_MAE) + 0.5 * (ensemble_RMSE / Random_Walk_RMSE)",
+    "lower_is_better": true,
+    "tie_breaker": "choose the smaller alpha",
+    "fallback": "alpha=0.0 when no candidate is eligible"
+  },
+  "locked_2026_evaluation": {
+    "locked_on": "2026-08-02",
+    "alpha": 0.5,
+    "context_length": 756,
+    "prediction_length": 20,
+    "requested_origins": [
+      "2026-01-01",
+      "2026-02-01",
+      "2026-03-01",
+      "2026-04-01",
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01"
+    ],
+    "expected_origins": 7,
+    "expected_rows": 140,
+    "success_criteria": {
+      "overall": "ensemble MAE and RMSE must both be lower than Random Walk",
+      "origin_consistency": "ensemble must beat Random Walk on both MAE and RMSE in at least 4 of 7 origins",
+      "status_if_passed": "provisional_due_to_small_sample",
+      "status_if_failed": "not_confirmed_do_not_retune_with_2026_results"
+    },
+    "small_sample_warning": "Seven monthly origins are insufficient for a strong generalization claim."
+  },
+  "test_data_policy": "do not use 2022-2025 final test or 2026 observations to select or revise alpha"
+}

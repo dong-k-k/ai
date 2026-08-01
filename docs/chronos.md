@@ -2,6 +2,12 @@
 
 본 프로젝트에서는 Amazon의 시계열 예측 모델인 `amazon/chronos-2`를 직접 사용한다. AutoGluon과 같은 별도 AutoML 프레임워크는 초기 구현 범위에서 제외하며, `Chronos2Pipeline`을 이용해 모델의 입력과 출력을 직접 제어한다.
 
+## 현재 검증 결론
+
+USD/KRW 단변량 20영업일 예측의 Zero-shot context 비교, LoRA 후보 선택, 고정 최종 Test를 완료했다. LoRA는 최종 Test에서 Zero-shot과 Random Walk를 개선하지 못했으므로 운영 기본 모델로 사용하지 않는다.
+
+상세 설정, Validation 결과, 최종 Test 지표와 모델 사용 정책은 [USD/KRW 20영업일 Chronos-2 LoRA 평가 결과](results/usdkrw_h20_lora_evaluation.md)에 기록한다.
+
 ## 1. 모델이 기대하는 입력 형식
 
 Chronos-2의 `predict()` 함수는 크게 세 가지 형태의 입력을 지원한다.
@@ -598,7 +604,7 @@ shape = (3, history_length)
 - 일별 영업일 데이터
 
 예측 대상
-- USD/KRW 종가
+- USD/KRW 매매기준율
 
 초기 모델 유형
 - 단변량 시계열 예측
@@ -645,3 +651,45 @@ History Length 후보
 - DXY, VIX, 금리 등을 past_covariates로 추가
 - 단변량 기본 모델과 공변량 모델의 백테스트 성능 비교
 ```
+
+### 5.1 축소 앙상블 Validation 결과
+
+Random Walk를 기준 경로로 두고 Chronos-2 Zero-shot 변화량을 축소 반영하는 단일 α 실험을 수행했다. Validation 2018~2021의 제한된 후보에서는 α=0.5가 선택됐고 Random Walk 대비 MAE 1.268%, RMSE 0.830% 개선됐다.
+
+다만 2019년 RMSE가 소폭 악화됐고 α=0.5가 후보 상한이므로 운영 기본값이나 전역 최적값으로 확정하지 않는다. α=0.5를 신규 평가용 고정 연구 후보로 보존하며 현재 결과만으로 기간별 α를 추가 선택하지 않는다.
+
+상세 결과는 `docs/results/usdkrw_h20_shrunk_ensemble_validation.md`에 기록한다.
+
+### 5.2 2026년 고정 설정 평가
+
+Validation에서 선택한 α=0.5를 변경하지 않고 2026년 1~7월의 월별 기준일 7개에서 평가했다. 축소 앙상블은 Random Walk 대비 MAE 3.349%, RMSE 1.994% 개선했고, 기준일별 MAE와 RMSE에서 각각 6/7회 우수해 사전 등록 조건을 통과했다.
+
+다만 기준일이 7개뿐이므로 결과는 `provisional_due_to_small_sample`로 판정한다. 순수 Chronos-2 Zero-shot이 이 구간에서 앙상블보다 우수했더라도 2026년 결과를 이용해 α를 다시 선택하지 않는다.
+
+상세 결과는 `docs/results/usdkrw_h20_shrunk_ensemble_2026_locked.md`에 기록한다.
+
+### 5.3 환위험 계산 엔진
+
+공통 `ForecastScenario`를 입력받아 지급·수취 계약의 시나리오별 원화 금액, 현재 기준환율 대비 손익과 완전 무헤지 대비 헤지 효과를 계산하는 엔진을 구현했다. 예측 모델은 계산 함수와 분리하며 지급·수취 가상 계약의 JSON·CSV 내보내기와 손익 부호 대칭성을 검증했다.
+
+은행 스프레드, 수수료, 세금, 실제 금융상품 조건은 포함하지 않으며 특정 상품이나 최적 헤지 비율을 추천하지 않는다.
+
+상세 계산 정의와 예시는 `docs/results/usdkrw_hedge_analysis_examples.md`에 기록한다.
+
+### 5.4 예측구간 내부 보정
+
+Chronos-2 context 756의 q0.1~q0.9 Validation 포함률은 73.65%로 목표 80%를 과소포착했다. 2018~2019를 보정 구간, 2020~2021을 내부 평가 구간으로 고정하고 전역 대칭 additive conformal widening을 적용했다.
+
+상·하단을 각각 3.0085원 확장하자 내부 평가 포함률은 74.79%에서 82.71%로 증가했고 평균 폭은 16.39% 넓어졌다. 전체 내부 기준은 통과했지만 2020년 포함률은 76.25%에 그쳤으므로 모든 시장 국면에서 보정됐다고 주장하지 않는다.
+
+context 756은 전체 Validation을 보고 선택했으므로 이 결과는 완전한 미관측 Test가 아니다. 현재 환위험 출력의 기본 구간으로 교체하지 않고 고정 보정값의 신규 평가 전까지 연구 후보로 보존한다.
+
+상세 결과는 `docs/results/usdkrw_h20_interval_calibration_internal.md`에 기록한다.
+
+### 5.5 고정 구간 보정의 2026년 평가
+
+2018~2019에서 계산한 보정값 3.0085원을 변경하지 않고 2026년 1~7월 기준일 7개에 적용했다. 포함률은 54.29%에서 57.86%로만 증가해 사전 목표 80%에 크게 미달했다. 평균 구간 폭은 9.72% 증가했다.
+
+내부 평가에서 확인한 82.71% 포함률은 2026년 소표본에서 재현되지 않았다. 따라서 보정 구간을 기본 80% 구간으로 채택하지 않고 원래 Chronos 분위수와 함께 참고용 위험 시나리오로만 유지한다. 이 결과를 보고 보정값이나 lead별 값을 다시 선택하지 않는다.
+
+상세 결과는 `docs/results/usdkrw_h20_interval_calibration_2026_locked.md`에 기록한다.

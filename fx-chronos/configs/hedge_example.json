@@ -1,0 +1,35 @@
+{
+  "config_version": 1,
+  "example_only": true,
+  "contract": {
+    "currency_pair": "USD/KRW",
+    "side": "payment",
+    "foreign_amount": 1000000.0,
+    "settlement_date": "2026-07-30",
+    "reference_rate": 1548.4,
+    "hedged_amount": null,
+    "hedged_ratio": 0.5,
+    "hedge_rate": 1548.4
+  },
+  "forecast": {
+    "csv_path": "outputs/forecasts/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv",
+    "requested_origin": "2026-07-01",
+    "model_name": "Random Walk + Chronos-2 shrunk ensemble alpha=0.5",
+    "scenario_source": "shrunk_ensemble",
+    "point_column": "ensemble_forecast",
+    "lower_column": "chronos_q0.1_lower",
+    "median_column": "chronos_q0.5_median",
+    "upper_column": "chronos_q0.9_upper",
+    "unit": "KRW per USD",
+    "validation_metrics": {
+      "locked_2026_mae_improvement_vs_random_walk_percent": 3.348924,
+      "locked_2026_rmse_improvement_vs_random_walk_percent": 1.994264,
+      "locked_2026_origin_count": 7.0
+    },
+    "warning": "점 예측은 alpha=0.5 축소 앙상블이며 하한·중앙·상한은 Chronos-2 참고용 분위수입니다. 2026년 평가는 기준일 7개의 소표본이고 과거 예측구간 포함률이 목표에 미달했으므로 확정적 신뢰구간으로 해석하지 않습니다."
+  },
+  "output": {
+    "json_path": "outputs/hedge_analysis/example_usd_payment_20260730.json",
+    "csv_path": "outputs/hedge_analysis/example_usd_payment_20260730.csv"
+  }
+}
