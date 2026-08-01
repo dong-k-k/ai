@@ -1,0 +1,11 @@
+{
+  "method": "global_symmetric_additive_conformal_widening",
+  "nominal_coverage": 0.8,
+  "interval_correction": 3.008544921875,
+  "point_forecast_changed": false,
+  "final_test_2022_2025_used": false,
+  "observations_2026_used": false,
+  "passed_pre_registered_internal_rule": true,
+  "status": "internal_rule_passed",
+  "interpretation_warning": "Context 756 was selected using the full 2018-2021 Validation period, so 2020-2021 is an internal evaluation rather than a pristine unseen test."
+}

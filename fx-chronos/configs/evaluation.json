@@ -75,6 +75,31 @@
   "finetuning_plan": {
     "next_backtest_frequency": "monthly forecast origins",
     "split_policy": "fixed chronological train, validation, and final test periods",
+    "fixed_split": {
+      "locked_on": "2026-08-01",
+      "assignment_rule": "all target dates for an origin must be contained within one split",
+      "development_history": {
+        "target_start": "1997-01-01",
+        "target_end": "2017-12-31",
+        "expected_monthly_origins": 251,
+        "use": "training sample design and development diagnostics"
+      },
+      "validation": {
+        "target_start": "2018-01-01",
+        "target_end": "2021-12-31",
+        "expected_monthly_origins": 48,
+        "use": "LoRA configuration selection and early stopping"
+      },
+      "final_test": {
+        "target_start": "2022-01-01",
+        "target_end": "2025-12-31",
+        "expected_monthly_origins": 48,
+        "use": "one final comparison after configuration selection"
+      },
+      "excluded_origin_policy": "exclude an origin when its target dates cross a split boundary",
+      "known_excluded_requested_origins": ["2017-12-01"],
+      "test_visibility_note": "The 2022-2025 rows were included in the aggregate zero-shot evaluation before this split was locked. Do not use final-test results to select or repeatedly revise fine-tuning settings."
+    },
     "first_method": "LoRA",
     "full_finetuning": "only if LoRA results and compute cost justify it",
     "success_criteria": [

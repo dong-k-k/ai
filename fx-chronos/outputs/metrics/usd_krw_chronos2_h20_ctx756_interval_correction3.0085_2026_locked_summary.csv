@@ -1,0 +1,2 @@
+evaluation,nominal_coverage,origins,interval_correction,rows,original_coverage,corrected_coverage,coverage_change_percentage_points,original_mean_width,corrected_mean_width,mean_width_increase,mean_width_increase_percent,corrected_below_rate,corrected_above_rate
+locked_2026_january_to_july,0.8,7,3.008544921875,140,0.5428571428571428,0.5785714285714286,3.571428571428581,61.924002511160715,67.94109235491071,6.01708984375,9.716894257062144,0.22857142857142856,0.19285714285714287

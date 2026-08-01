@@ -1,0 +1,27 @@
+{
+  "model_id": "amazon/chronos-2",
+  "context_length": 252,
+  "prediction_length": 20,
+  "batch_size": 4,
+  "num_steps": 100,
+  "validation_series": 4,
+  "learning_rate": 1e-05,
+  "seed": 42,
+  "results": [
+    {
+      "device": "cpu",
+      "elapsed_seconds": 18.669671582989395,
+      "steps_per_second": 5.356280615622268,
+      "model_class": "PeftModel"
+    },
+    {
+      "device": "mps",
+      "elapsed_seconds": 8.708261083986145,
+      "steps_per_second": 11.483348860990478,
+      "model_class": "PeftModel"
+    }
+  ],
+  "mps_speedup_vs_cpu": 2.1439035190758755,
+  "faster_device": "mps",
+  "scope": "runtime benchmark only; losses are not used for model selection"
+}

@@ -1,0 +1,17 @@
+{
+  "evaluation": "locked_2026_january_to_july",
+  "settings_were_locked_before_forecast": true,
+  "alpha_was_reselected": false,
+  "final_test_2022_2025_used": false,
+  "alpha": 0.5,
+  "context_length": 756,
+  "prediction_length": 20,
+  "origin_count": 7,
+  "mae_origin_win_count_vs_random_walk": 6,
+  "rmse_origin_win_count_vs_random_walk": 6,
+  "overall_pass": true,
+  "origin_consistency_pass": true,
+  "passed_pre_registered_criteria": true,
+  "status": "provisional_due_to_small_sample",
+  "small_sample_warning": "Seven monthly origins are insufficient for a strong generalization claim."
+}

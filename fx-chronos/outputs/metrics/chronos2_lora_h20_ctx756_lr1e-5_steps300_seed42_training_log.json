@@ -1,0 +1,79 @@
+{
+  "best_global_step": 300,
+  "best_metric": 1.9261516332626343,
+  "best_model_checkpoint": "/Users/chase/project/dong-k-k/fx-chronos/outputs/checkpoints/chronos2_lora_h20_ctx756_lr1e-5_steps300_seed42/checkpoint-300",
+  "epoch": 1.0,
+  "eval_steps": 100,
+  "global_step": 300,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 0.3333333333333333,
+      "grad_norm": 0.662810206413269,
+      "learning_rate": 6.700000000000001e-06,
+      "loss": 1.1691306304931641,
+      "step": 100
+    },
+    {
+      "epoch": 0.3333333333333333,
+      "eval_loss": 1.9272888898849487,
+      "eval_runtime": 0.6674,
+      "eval_samples_per_second": 71.926,
+      "eval_steps_per_second": 17.982,
+      "step": 100
+    },
+    {
+      "epoch": 0.6666666666666666,
+      "grad_norm": 4.992917060852051,
+      "learning_rate": 3.366666666666667e-06,
+      "loss": 1.6720770263671876,
+      "step": 200
+    },
+    {
+      "epoch": 0.6666666666666666,
+      "eval_loss": 1.9279311895370483,
+      "eval_runtime": 0.7577,
+      "eval_samples_per_second": 63.347,
+      "eval_steps_per_second": 15.837,
+      "step": 200
+    },
+    {
+      "epoch": 1.0,
+      "grad_norm": 1.6732765436172485,
+      "learning_rate": 3.333333333333334e-08,
+      "loss": 1.4206558227539063,
+      "step": 300
+    },
+    {
+      "epoch": 1.0,
+      "eval_loss": 1.9261516332626343,
+      "eval_runtime": 0.6725,
+      "eval_samples_per_second": 71.38,
+      "eval_steps_per_second": 17.845,
+      "step": 300
+    }
+  ],
+  "logging_steps": 100,
+  "max_steps": 300,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 9223372036854775807,
+  "save_steps": 100,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": true
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 0.0,
+  "train_batch_size": 4,
+  "trial_name": null,
+  "trial_params": null
+}

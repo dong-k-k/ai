@@ -1,0 +1,41 @@
+{
+  "config_version": 1,
+  "locked_on": "2026-08-02",
+  "target": "USD/KRW",
+  "source_model": "amazon/chronos-2 zero-shot context 756",
+  "prediction_length": 20,
+  "nominal_coverage": 0.8,
+  "method": "global_symmetric_additive_conformal_widening",
+  "nonconformity_score": "max(lower - actual, actual - upper, 0)",
+  "finite_sample_rank": "ceil((n + 1) * nominal_coverage)",
+  "calibration_requested_origin_start": "2018-01-01",
+  "calibration_requested_origin_end": "2019-12-31",
+  "internal_evaluation_requested_origin_start": "2020-01-01",
+  "internal_evaluation_requested_origin_end": "2021-12-31",
+  "expected_calibration_origins": 24,
+  "expected_internal_evaluation_origins": 24,
+  "expected_rows_per_origin": 20,
+  "success_rule": "corrected internal-evaluation coverage must be at least 0.8; always report width increase",
+  "retuning_policy": "do not revise the method using internal-evaluation, 2022-2025 final-test, or 2026 results",
+  "interpretation_warning": "Context 756 was selected using the full 2018-2021 Validation period, so 2020-2021 is an internal evaluation rather than a pristine unseen test.",
+  "locked_2026_evaluation": {
+    "locked_on": "2026-08-02",
+    "interval_correction": 3.008544921875,
+    "correction_source": "2018-2019 calibration only",
+    "requested_origins": [
+      "2026-01-01",
+      "2026-02-01",
+      "2026-03-01",
+      "2026-04-01",
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01"
+    ],
+    "expected_origins": 7,
+    "expected_rows": 140,
+    "success_rule": "overall corrected coverage must be at least 0.8; report width increase and all origin/lead results",
+    "status_if_passed": "provisional_out_of_calibration_pass_small_sample",
+    "status_if_failed": "out_of_calibration_rule_not_met_do_not_retune",
+    "visibility_warning": "The correction was fixed without 2026 observations, but 2026 actuals were already viewed in earlier point-forecast evaluation and visualization; do not call this a pristine unseen test."
+  }
+}

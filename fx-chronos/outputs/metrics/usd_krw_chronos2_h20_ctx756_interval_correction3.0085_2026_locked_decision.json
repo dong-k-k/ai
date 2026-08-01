@@ -1,0 +1,14 @@
+{
+  "evaluation": "locked_2026_january_to_july",
+  "interval_correction_was_reselected": false,
+  "interval_correction": 3.008544921875,
+  "correction_source": "2018-2019 calibration only",
+  "nominal_coverage": 0.8,
+  "origin_count": 7,
+  "origins_at_or_above_nominal_coverage": 4,
+  "passed_pre_registered_rule": false,
+  "status": "out_of_calibration_rule_not_met_do_not_retune",
+  "point_forecast_changed": false,
+  "visibility_warning": "The correction was fixed without 2026 observations, but 2026 actuals were already viewed in earlier point-forecast evaluation and visualization; do not call this a pristine unseen test.",
+  "retuning_policy": "do not revise the method using internal-evaluation, 2022-2025 final-test, or 2026 results"
+}

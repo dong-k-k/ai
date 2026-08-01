@@ -1,0 +1,21 @@
+{
+  "selection_split": "validation_2018_2021",
+  "alpha_candidates": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.5
+  ],
+  "selected_alpha": 0.5,
+  "selection_reason": "lowest_balanced_relative_error_score",
+  "selection_rule": {
+    "eligibility": "ensemble MAE and RMSE must both be less than or equal to Random Walk",
+    "score": "0.5 * (ensemble_MAE / Random_Walk_MAE) + 0.5 * (ensemble_RMSE / Random_Walk_RMSE)",
+    "lower_is_better": true,
+    "tie_breaker": "choose the smaller alpha",
+    "fallback": "alpha=0.0 when no candidate is eligible"
+  },
+  "final_test_used_for_selection": false,
+  "input_path": "outputs/forecasts/usd_krw_zero_shot_h20_ctx756_validation_2018_2021.csv"
+}
