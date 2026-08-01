@@ -1,0 +1,88 @@
+{
+  "config_version": 1,
+  "target": {
+    "series": "USD/KRW",
+    "value_column": "value",
+    "unit": "KRW per USD",
+    "frequency_policy": "each row is the next actual weekday ECOS observation"
+  },
+  "forecast": {
+    "point_forecast_column": "q0.5_median",
+    "lower_quantile_column": "q0.1_lower",
+    "upper_quantile_column": "q0.9_upper",
+    "quantile_levels": [0.1, 0.5, 0.9],
+    "service_candidate_horizons": [5, 20, 30],
+    "research_horizons": [60],
+    "deferred_horizons": [90, 120, 180, 252]
+  },
+  "point_metrics": {
+    "metrics": ["MAE", "RMSE"],
+    "aggregation": ["overall_by_horizon", "by_lead_step"],
+    "lower_is_better": true
+  },
+  "direction_metric": {
+    "name": "origin_direction_accuracy",
+    "forecast_direction": "sign(forecast_at_step - actual_at_forecast_origin)",
+    "actual_direction": "sign(actual_at_step - actual_at_forecast_origin)",
+    "tie_policy": "a tie is correct only when both directions are zero",
+    "aggregation": ["overall_by_horizon", "by_lead_step"],
+    "higher_is_better": true
+  },
+  "probabilistic_metrics": {
+    "pinball_loss": {
+      "quantile_levels": [0.1, 0.5, 0.9],
+      "aggregation": ["per_quantile", "mean_across_quantiles", "by_lead_step"],
+      "lower_is_better": true
+    },
+    "interval_coverage": {
+      "nominal_coverage": 0.8,
+      "inclusive_bounds": true,
+      "aggregation": ["overall_by_horizon", "by_lead_step"]
+    },
+    "mean_interval_width": {
+      "calculation": "mean(q0.9_upper - q0.1_lower)",
+      "unit": "KRW per USD",
+      "interpret_with": "interval_coverage"
+    }
+  },
+  "scaled_metric": {
+    "name": "MASE",
+    "scale": "mean absolute one-step difference in the training segment available at each forecast origin",
+    "seasonality": 1,
+    "data_leakage_rule": "never calculate the scale with validation or future observations",
+    "lower_is_better": true
+  },
+  "baseline_comparison": {
+    "required_baseline": "Random Walk / last observation carried forward",
+    "mae_improvement_percent": "100 * (baseline_MAE - model_MAE) / baseline_MAE",
+    "rmse_improvement_percent": "100 * (baseline_RMSE - model_RMSE) / baseline_RMSE",
+    "positive_value_means": "Chronos-2 outperforms the baseline"
+  },
+  "backtest_rules": {
+    "split_method": "walk_forward",
+    "shuffle": false,
+    "future_data_in_input": false,
+    "fit_preprocessing_on_test": false,
+    "evaluate_horizons_separately": true,
+    "preserve_forecast_origin": true,
+    "preserve_lead_step": true
+  },
+  "deferred_metrics": {
+    "CRPS": "consider after the initial quantile backtest is stable",
+    "RMSSE": "consider when comparing currencies with different price scales",
+    "WAPE": "optional supplementary metric"
+  },
+  "finetuning_plan": {
+    "next_backtest_frequency": "monthly forecast origins",
+    "split_policy": "fixed chronological train, validation, and final test periods",
+    "first_method": "LoRA",
+    "full_finetuning": "only if LoRA results and compute cost justify it",
+    "success_criteria": [
+      "lower MAE and RMSE than Random Walk on the untouched final test period",
+      "lower MAE and RMSE than zero-shot Chronos-2 on the untouched final test period",
+      "improvement is not driven only by a few volatile forecast origins",
+      "better balance between 80% interval coverage and interval width",
+      "no repeated configuration selection using final test results"
+    ]
+  }
+}

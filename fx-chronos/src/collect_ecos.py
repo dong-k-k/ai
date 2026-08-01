@@ -58,15 +58,19 @@ def request_ecos(service: str, path_parts: list[str]) -> dict[str, Any]:
     """Send a request to an ECOS Open API service and return the parsed JSON payload."""
     api_key = get_api_key()
     base_url = f"https://ecos.bok.or.kr/api/{service}/{api_key}/json/kr"
+    masked_base_url = f"https://ecos.bok.or.kr/api/{service}/***/json/kr"
     endpoint = "/".join(path_parts)
     url = f"{base_url}/{endpoint}" if endpoint else base_url
+    masked_url = f"{masked_base_url}/{endpoint}" if endpoint else masked_base_url
 
+    print(f"ECOS request URL: {masked_url}")
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     try:
         with urllib.request.urlopen(req, timeout=60) as response:
             payload = json.load(response)
     except Exception as exc:
-        raise RuntimeError(f"ECOS API 호출 실패: {service} -> {exc}") from exc
+        # urllib 예외에는 인증키가 포함된 실제 URL이 들어갈 수 있으므로 원문을 출력하지 않는다.
+        raise RuntimeError(f"ECOS API 호출 실패: {service} ({type(exc).__name__})") from None
 
     result = payload.get("RESULT", {})
     code = result.get("CODE")
@@ -284,13 +288,79 @@ def save_results(
     save_json({"rows": failures}, failure_raw_path)
 
 
-def fetch_ecos_series(stat_code: str, start_date: str, end_date: str) -> dict[str, Any]:
-    """Fetch a series from the ECOS Open API."""
-    return request_ecos("StatisticSearch", ["1", "100", stat_code, "D", start_date, end_date])
+def fetch_ecos_series(
+    stat_code: str,
+    item_code: str,
+    start_date: str,
+    end_date: str,
+    cycle: str = "D",
+    page_size: int = 1000,
+) -> dict[str, Any]:
+    """Fetch every page for one explicitly selected ECOS series."""
+    all_rows: list[dict[str, Any]] = []
+    pages: list[dict[str, Any]] = []
+    start_index = 1
+    total_count: int | None = None
+
+    while total_count is None or len(all_rows) < total_count:
+        end_index = start_index + page_size - 1
+        path_parts = [
+            str(start_index),
+            str(end_index),
+            stat_code,
+            cycle,
+            start_date,
+            end_date,
+            item_code,
+        ]
+        payload = request_ecos("StatisticSearch", path_parts)
+        container = payload.get("StatisticSearch", {})
+        if not isinstance(container, dict):
+            raise RuntimeError("StatisticSearch 응답 형식이 올바르지 않습니다.")
+
+        page_rows = container.get("row", [])
+        if not isinstance(page_rows, list):
+            raise RuntimeError("StatisticSearch.row가 목록 형식이 아닙니다.")
+
+        if total_count is None:
+            raw_total_count = container.get("list_total_count")
+            if raw_total_count is None:
+                raise RuntimeError("StatisticSearch.list_total_count가 없습니다.")
+            total_count = int(raw_total_count)
+
+        pages.append(
+            {
+                "start_index": start_index,
+                "end_index": end_index,
+                "row_count": len(page_rows),
+            }
+        )
+        if not page_rows:
+            break
+
+        all_rows.extend(page_rows)
+        start_index += page_size
+
+    return {
+        "service": "StatisticSearch",
+        "query": {
+            "stat_code": stat_code,
+            "cycle": cycle,
+            "start_date": start_date,
+            "end_date": end_date,
+            "item_code": item_code,
+            "page_size": page_size,
+        },
+        "list_total_count": total_count or 0,
+        "pages": pages,
+        "rows": all_rows,
+    }
 
 
 def extract_rows_for_series(payload: dict[str, Any], item_code: str) -> list[dict[str, Any]]:
-    rows = extract_rows(payload, "StatisticSearch")
+    rows = payload.get("rows", [])
+    if not rows:
+        rows = extract_rows(payload, "StatisticSearch")
     if not rows:
         raise RuntimeError("No rows returned from ECOS API")
 
@@ -315,24 +385,81 @@ def save_records(records: list[dict[str, Any]], out_path: Path) -> None:
         writer.writerows(records)
 
 
-def collect_series(stat_code: str, item_code: str, output_name: str, description: str) -> Path:
-    payload = fetch_ecos_series(stat_code, "20200101", "20240101")
-    rows = extract_rows_for_series(payload, item_code)
+def validate_date(date_value: str, field_name: str) -> None:
+    """Validate an ECOS daily date argument without changing its value."""
+    try:
+        datetime.strptime(date_value, "%Y%m%d")
+    except ValueError as exc:
+        raise ValueError(f"{field_name}는 YYYYMMDD 형식이어야 합니다: {date_value}") from exc
+
+
+def collect_series(
+    stat_code: str,
+    item_code: str,
+    output_name: str,
+    description: str,
+    start_date: str,
+    end_date: str,
+    cycle: str = "D",
+    expected_item_name: str = "원/미국달러(매매기준율)",
+) -> Path:
+    validate_date(start_date, "start_date")
+    validate_date(end_date, "end_date")
+    if start_date > end_date:
+        raise ValueError("start_date는 end_date보다 늦을 수 없습니다.")
+
+    payload = fetch_ecos_series(stat_code, item_code, start_date, end_date, cycle=cycle)
+    rows = payload["rows"]
 
     records: list[dict[str, Any]] = []
+    invalid_stat_code = 0
+    invalid_item_code = 0
+    invalid_item_name = 0
+    mixed_item_count = 0
+    missing_time = 0
+    blank_data_value = 0
+    numeric_conversion_failures = 0
+    out_of_range = 0
+
     for row in rows:
+        if str(row.get("STAT_CODE", "")) != stat_code:
+            invalid_stat_code += 1
+        item_code_mismatch = str(row.get("ITEM_CODE1", "")) != item_code
+        item_name_mismatch = str(row.get("ITEM_NAME1", "")) != expected_item_name
+        if item_code_mismatch:
+            invalid_item_code += 1
+        if item_name_mismatch:
+            invalid_item_name += 1
+        if item_code_mismatch or item_name_mismatch:
+            mixed_item_count += 1
+
         raw_date = str(row.get("TIME", ""))
+        if not raw_date:
+            missing_time += 1
+        elif raw_date < start_date or raw_date > end_date:
+            out_of_range += 1
+
+        raw_value = row.get("DATA_VALUE")
+        if raw_value in (None, ""):
+            blank_data_value += 1
+            continue
+        try:
+            value = float(str(raw_value))
+        except (TypeError, ValueError):
+            numeric_conversion_failures += 1
+            continue
+
         if len(raw_date) == 8:
             iso_date = f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:8]}"
         else:
             iso_date = raw_date
 
         item_name = str(row.get("ITEM_NAME1", row.get("ITEM_NAME", "")))
-        value = convert_value(str(row.get("DATA_VALUE", "0")), item_name)
         records.append(
             {
                 "date": iso_date,
                 "value": value,
+                "stat_code": stat_code,
                 "item_code": item_code,
                 "item_name": item_name,
                 "unit_name": row.get("UNIT_NAME", ""),
@@ -341,15 +468,82 @@ def collect_series(stat_code: str, item_code: str, output_name: str, description
             }
         )
 
-    out_path = PROCESSED_DIR / output_name
-    save_records(records, out_path)
+    validation_errors = (
+        invalid_stat_code
+        + invalid_item_code
+        + invalid_item_name
+        + missing_time
+        + blank_data_value
+        + numeric_conversion_failures
+        + out_of_range
+    )
+    if validation_errors:
+        raise RuntimeError(
+            "ECOS 응답 검증 실패: "
+            f"통계표 코드 오류={invalid_stat_code}, USD 외 항목 혼입={mixed_item_count}, "
+            f"TIME 누락={missing_time}, 빈 DATA_VALUE={blank_data_value}, "
+            f"숫자 변환 실패={numeric_conversion_failures}, 기간 밖 데이터={out_of_range}"
+        )
 
-    raw_out_path = RAW_DIR / f"{output_name.replace('.csv', '')}_raw.json"
-    raw_out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    records.sort(key=lambda record: record["date"])
+    dates = [record["date"] for record in records]
+    duplicate_date_count = len(dates) - len(set(dates))
+    if duplicate_date_count:
+        raise RuntimeError(f"중복 날짜가 발견되었습니다: {duplicate_date_count}건")
+
+    total_count = int(payload["list_total_count"])
+    if len(rows) != total_count:
+        raise RuntimeError(
+            f"ECOS list_total_count와 실제 수집 행 수가 다릅니다: "
+            f"list_total_count={total_count}, 실제={len(rows)}"
+        )
+
+    requested_dates = {
+        date.strftime("%Y-%m-%d")
+        for date in (
+            datetime.strptime(start_date, "%Y%m%d") + timedelta(days=offset)
+            for offset in range(
+                (datetime.strptime(end_date, "%Y%m%d") - datetime.strptime(start_date, "%Y%m%d")).days + 1
+            )
+        )
+    }
+    missing_calendar_dates = sorted(requested_dates - set(dates))
+    collected_at = datetime.now().strftime("%Y%m%dT%H%M%S")
+    raw_out_path = RAW_DIR / f"usdkrw_{start_date}_{end_date}_{collected_at}.json"
+    out_path = ECOS_PROCESSED_DIR / f"usdkrw_{start_date}_{end_date}.csv"
+    if raw_out_path.exists() or out_path.exists():
+        raise FileExistsError(f"기존 결과 파일을 덮어쓰지 않습니다: {raw_out_path} 또는 {out_path}")
+
+    quality_summary = {
+        "requested_period": f"{start_date}~{end_date}",
+        "list_total_count": total_count,
+        "collected_row_count": len(rows),
+        "first_date": dates[0] if dates else None,
+        "last_date": dates[-1] if dates else None,
+        "duplicate_date_count": duplicate_date_count,
+        "blank_data_value_count": blank_data_value,
+        "numeric_conversion_failure_count": numeric_conversion_failures,
+        "non_usd_item_count": mixed_item_count,
+        "missing_calendar_dates": missing_calendar_dates,
+    }
+    payload["quality_summary"] = quality_summary
+    payload["collected_at"] = collected_at
+
+    save_json(payload, raw_out_path)
+    save_csv(records, out_path)
 
     print(f"Saved {description} to {out_path}")
     print(f"Saved raw payload to {raw_out_path}")
-    print(f"Rows collected: {len(records)}")
+    print(f"요청 기간: {quality_summary['requested_period']}")
+    print(f"ECOS list_total_count: {total_count}")
+    print(f"실제 수집 행 수: {len(rows)}")
+    print(f"최초 날짜: {quality_summary['first_date']}")
+    print(f"최종 날짜: {quality_summary['last_date']}")
+    print(f"중복 날짜 수: {duplicate_date_count}")
+    print(f"빈 DATA_VALUE 수: {blank_data_value}")
+    print(f"숫자 변환 실패 수: {numeric_conversion_failures}")
+    print(f"USD 외 항목 혼입 수: {mixed_item_count}")
+    print(f"저장 경로: {out_path}")
     return out_path
 
 
@@ -470,7 +664,14 @@ def main() -> None:
     print(f"- {ECOS_PROCESSED_DIR / 'usdkrw_item_candidates.csv'}")
     print(f"- {ECOS_PROCESSED_DIR / 'usdkrw_metadata.json'}")
 
-    collect_series(str(selected_table.get("STAT_CODE", "")), selected_item_code, "usd_krw_krw_per_usd.csv", "USD/KRW (KRW per USD)")
+    collect_series(
+        str(selected_table.get("STAT_CODE", "")),
+        selected_item_code,
+        "usd_krw_krw_per_usd.csv",
+        "USD/KRW (KRW per USD)",
+        start_date="20240101",
+        end_date="20240331",
+    )
 
 
 if __name__ == "__main__":
