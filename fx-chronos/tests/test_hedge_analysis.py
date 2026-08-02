@@ -9,8 +9,8 @@ from pathlib import Path
 SRC_DIR = Path(__file__).resolve().parent.parent / "src"
 sys.path.insert(0, str(SRC_DIR))
 
-from forecast_provider import ForecastScenario, ScenarioSource  # noqa: E402
-from hedge_analysis import ExposureSide, FxExposure, analyze_fx_exposure  # noqa: E402
+from src.hedging.forecast_provider import ForecastScenario, ScenarioSource  # noqa: E402
+from src.hedging.hedge_analysis import ExposureSide, FxExposure, analyze_fx_exposure  # noqa: E402
 
 
 SETTLEMENT_DATE = date(2026, 7, 2)

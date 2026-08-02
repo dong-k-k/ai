@@ -1,172 +1,216 @@
 # FX Chronos
 
-한국은행 ECOS의 USD/KRW 일별 매매기준율과 Amazon Chronos-2를 이용해 환율 경로를 예측하고, 기업의 외화 지급·수취 계약을 원화 손익 시나리오로 변환하는 연구 프로젝트입니다.
+한국은행 ECOS의 USD/KRW 일별 매매기준율을 Amazon Chronos-2로 예측하고, Random Walk와 결합한 환율 경로를 평가하는 프로젝트입니다.
 
-현재 구현 범위는 **USD/KRW 20개 관측 영업일 예측과 환위험 계산**입니다. Random Walk를 정직한 기준선으로 유지하고, Chronos-2의 점 예측과 분위수 예측은 검증 결과에 맞는 제한된 역할로 사용합니다.
+현재 서비스 후보는 USD/KRW의 향후 20·60·90개 실제 환율 관측값입니다. 최종 점 예측은 Chronos-2 Zero-shot과 Random Walk를 50:50으로 결합한 고정 `α=0.5` 축소 앙상블입니다.
 
-## 현재 결과
+## 구현 범위
 
-| 영역 | 결과 | 현재 판정 |
-|---|---|---|
-| ECOS 데이터 | 1964-05-04~2026-07-30, 전체 17,476행 | 수집·검증·원본 보존 완료 |
-| 모델 입력 데이터 | 월~금 관측 15,405행 | 보간 없는 단변량 시계열 확정 |
-| 기준 모델 | Random Walk | 최종 Test에서 가장 낮은 MAE·RMSE |
-| Chronos-2 Zero-shot | context length 756, 20-step 예측 | 변화 경로와 분위수 시나리오 후보 |
-| LoRA 파인튜닝 | 고정 후보의 최종 Test 완료 | 일반화 가능한 개선 미확인, 연구용 보존 |
-| 축소 앙상블 | `α=0.5` | 2026년 7개 기준일에서 잠정 통과 |
-| 예측 구간 | Chronos q0.1~q0.9 및 고정 보정 평가 | 목표 포함률 미달, 참고 시나리오로만 사용 |
-| 환위험 분석 | 지급·수취, 부분 헤지, 원화 손익 계산 | 기능 구현 및 단위 테스트 완료 |
+| 영역 | 구현 내용 |
+|---|---|
+| 통화 | USD/KRW |
+| 데이터 | 한국은행 ECOS 일별 원/미국달러 매매기준율 |
+| 예측 기간 | 20·60·90개 실제 평일 관측 |
+| 기준 모델 | Random Walk |
+| 시계열 모델 | `amazon/chronos-2` Zero-shot |
+| 최종 점 예측 | Random Walk와 Chronos-2의 고정 `α=0.5` 축소 앙상블 |
+| 입력 길이 | 최근 756개 관측 |
+| 실행 장치 | Apple Silicon MPS |
+| 평가 | 시간순 Walk-forward, MAE, RMSE, 방향 정확도, 기준일별 성능 |
+| 불확실성 출력 | Chronos q0.1·q0.5·q0.9 참고 시나리오 |
+| 환위험 계산 | USD 지급·수취, 부분 헤지, 원화 금액과 손익 시나리오 |
 
 ## 데이터 정의
 
-사용 시계열은 한국은행 ECOS 통계표 `731Y001`의 일별 원/미국달러 매매기준율입니다.
-
 ```text
-STAT_CODE  = 731Y001
-CYCLE      = D
-ITEM_CODE1 = 0000001
-ITEM_NAME1 = 원/미국달러(매매기준율)
-UNIT_NAME  = 원
+데이터 제공처: 한국은행 ECOS Open API
+통계표 코드: 731Y001
+주기: D
+항목 코드: 0000001
+항목명: 원/미국달러(매매기준율)
+단위: 원/미국달러
 ```
 
-| 데이터 | 행 수 | 기간 | 정책 |
-|---|---:|---|---|
-| ECOS 처리 원본 | 17,476 | 1964-05-04~2026-07-30 | ECOS가 반환한 주말 관측 포함 |
-| 모델 입력 | 15,405 | 1964-05-04~2026-07-30 | 월~금 관측만 사용 |
-| 주말 감사 데이터 | 2,071 | 1964-05-09~2006-02-25 | 모델에서 제외한 행을 별도 보존 |
+| 데이터 | 기간 | 행 수 | 파일 |
+|---|---|---:|---|
+| ECOS 처리 데이터 | 1964-05-04~2026-07-30 | 17,476 | `data/processed/ecos/usdkrw_19640504_20260730.csv` |
+| 모델 입력 데이터 | 1964-05-04~2026-07-30 | 15,405 | `data/processed/usd_krw_model_weekdays_19640504_20260730.csv` |
+| 제거 주말 감사 데이터 | 1964-05-09~2006-02-25 | 2,071 | `data/processed/audit/usd_krw_removed_weekends_19640504_20260730.csv` |
 
-모델 데이터에는 평일의 빈 날짜를 새로 만들지 않으며 전일값 채우기나 선형보간을 하지 않습니다. 따라서 `1 step`은 달력상의 하루가 아니라 **다음 실제 평일 ECOS 관측값**을 뜻합니다.
+데이터 처리 정책은 다음과 같습니다.
 
-## 예측 모델과 역할
+- ECOS 원본 JSON과 처리 CSV를 분리해 보존합니다.
+- ECOS가 반환한 토요일·일요일 관측은 원본과 처리 데이터에 유지합니다.
+- 모델 입력에는 월요일~금요일 관측만 사용합니다.
+- 제거한 주말 관측은 감사 CSV에 보존합니다.
+- 관측이 없는 평일을 새로 만들지 않습니다.
+- 전일값 채우기와 선형보간을 사용하지 않습니다.
+- `1 step`은 다음 실제 평일 ECOS 관측을 의미합니다.
 
-### Random Walk
+ECOS 매매기준율은 시장 종가, 실시간 환율 또는 은행 고객 적용환율과 동일하지 않습니다.
 
-마지막 관측 환율을 미래에도 유지하는 기준 모델입니다. 2022~2025 최종 Test에서 Chronos-2 Zero-shot과 LoRA보다 낮은 MAE와 RMSE를 기록했으므로 현재 가장 강한 점 예측 기준선입니다.
+## 최종 예측 방식
 
-### Chronos-2 Zero-shot
+Random Walk는 마지막 실제 관측값을 모든 미래 step에 유지합니다. Chronos-2는 최근 756개 USD/KRW 관측에서 미래 변화 경로를 생성합니다.
 
-`amazon/chronos-2`를 단변량 USD/KRW 시계열에 직접 적용합니다. 현재 선택된 입력 길이는 756개 관측이고 예측 길이는 20개 관측입니다. 점 예측 후보뿐 아니라 q0.1, q0.5, q0.9 시나리오를 제공합니다.
-
-### 축소 앙상블
-
-Random Walk 경로에서 Chronos-2가 제시한 변화량의 일부만 반영합니다.
+최종 점 예측은 다음과 같습니다.
 
 ```text
-앙상블 예측(h)
-= 마지막 관측 환율
-+ α × [Chronos 예측(h) - 마지막 관측 환율]
+ensemble(h)
+= last_observation
++ 0.5 × [chronos_median(h) - last_observation]
 ```
 
-2018~2021 Validation에서 사전 정의된 후보 중 `α=0.5`가 선택됐습니다. 이 값은 운영 최적값이 아니라 신규 구간에서 계속 검증할 고정 연구 후보입니다.
+동일한 식을 가중치로 표현하면 다음과 같습니다.
 
-### LoRA
+```text
+ensemble(h)
+= 0.5 × Random Walk(h)
++ 0.5 × Chronos-2 median(h)
+```
 
-Chronos-2 LoRA 파인튜닝과 평가 파이프라인은 구현돼 있습니다. 다만 현재 데이터 분할과 설정에서는 Zero-shot이나 Random Walk보다 일반화 가능한 성능 개선을 확인하지 못했으므로 운영 후보가 아닙니다.
+`α=0.5`는 2018~2021의 20영업일 Validation에서 선택됐으며 60·90영업일 평가에서는 다시 선택하지 않았습니다.
 
-## 핵심 성능
+## 성능
 
-### 2022~2025 최종 Test
+### 기간별 Validation
 
-48개 월별 기준일, 총 960개 20-step 예측 결과입니다.
+| 예측 기간 | 기준일 | 예측 행 | 앙상블 MAE | Random Walk MAE | MAE 우수율 | 앙상블 RMSE | Random Walk RMSE | RMSE 우수율 |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 48 | 960 | 12.104315 | 12.259792 | 1.268% | 15.834602 | 15.967171 | 0.830% |
+| 60 | 46 | 2,760 | 19.842420 | 20.017355 | 0.874% | 26.451518 | 26.630793 | 0.673% |
+| 90 | 44 | 3,960 | 25.141474 | 25.336490 | 0.770% | 33.007104 | 33.177991 | 0.515% |
+
+`우수율`은 다음 식으로 계산합니다.
+
+```text
+100 × (Random Walk 오차 - 앙상블 오차) / Random Walk 오차
+```
+
+기간별 기준일 승리 횟수는 다음과 같습니다.
+
+| 예측 기간 | MAE 승리 | RMSE 승리 |
+|---:|---:|---:|
+| 20 | 32/48 | 31/48 |
+| 60 | 25/46 | 25/46 |
+| 90 | 25/44 | 27/44 |
+
+60영업일은 2018-01-01~2021-10-01의 요청 기준일을 사용했고 목표일은 2018-01-02~2021-12-28입니다. 90영업일은 2018-01-01~2021-08-01의 요청 기준일을 사용했고 목표일은 2018-01-02~2021-12-13입니다. 2022년 이후 목표값은 두 평가에 포함하지 않았습니다.
+
+### 2026년 H20 고정 평가
+
+2018~2021에서 선택한 `α=0.5`를 변경하지 않고 2026년 1~7월의 7개 월별 기준일과 140개 예측 행에 적용했습니다.
 
 | 모델 | MAE | RMSE |
 |---|---:|---:|
-| Random Walk | **20.7573** | **28.4835** |
-| Chronos-2 Zero-shot | 21.3173 | 29.3309 |
-| Chronos-2 LoRA | 21.3323 | 29.3673 |
-
-이 구간에서는 Random Walk가 가장 우수했습니다. LoRA의 Zero-shot 대비 기준일별 승률도 MAE 50.0%, RMSE 52.08%로 일관된 우위를 보이지 않았습니다.
-
-### 2018~2021 축소 앙상블 Validation
-
-| 모델 | MAE | RMSE | RW 대비 MAE 개선 | RW 대비 RMSE 개선 |
-|---|---:|---:|---:|---:|
-| Random Walk (`α=0`) | 12.259792 | 15.967171 | - | - |
-| 축소 앙상블 (`α=0.5`) | **12.104315** | **15.834602** | **1.268%** | **0.830%** |
-
-`α=0.5`는 48개 기준일 중 MAE 32회, RMSE 31회 Random Walk를 이겼습니다. 개선폭은 작고 2019년 RMSE는 0.168% 악화됐으므로 모든 기간에서 우수하다고 해석하지 않습니다.
-
-### 2026년 고정 소표본 평가
-
-2018~2021에서 선택한 `α=0.5`를 변경하지 않고 2026년 1~7월의 7개 월별 기준일, 총 140행에 적용했습니다.
-
-| 모델 | MAE | RMSE |
-|---|---:|---:|
+| α=0.5 앙상블 | 34.872399 | 41.523387 |
 | Random Walk | 36.080714 | 42.368323 |
-| 축소 앙상블 (`α=0.5`) | 34.872399 | 41.523387 |
-| Chronos-2 Zero-shot | **33.679461** | **40.763084** |
 
-축소 앙상블은 Random Walk 대비 MAE 3.349%, RMSE 1.994% 개선했고 7개 기준일 중 6개에서 두 지표를 모두 개선했습니다. 사전 조건은 통과했지만 표본이 작으므로 판정은 `provisional_due_to_small_sample`입니다. 이 결과로 α를 다시 조정하지 않습니다.
+- MAE 우수율: 3.349%
+- RMSE 우수율: 1.994%
+- 기준일별 MAE 승리: 6/7
+- 기준일별 RMSE 승리: 6/7
+- 판정 상태: `provisional_due_to_small_sample`
 
-![2026년 7월 USD/KRW 고정 하이브리드 평가](outputs/figures/usd_krw_locked_hybrid_20260701.png)
+![2026년 7월 USD/KRW 고정 앙상블](outputs/figures/ensemble/usd_krw_locked_hybrid_20260701.png)
 
-## 예측 구간 판정
+## 분위수 시나리오
 
-Chronos-2의 q0.1~q0.9 범위는 명목상 80% 구간을 의도하지만 실제 포함률은 이에 미달했습니다.
+Chronos-2에서 다음 값을 추출합니다.
 
-| 평가 구간 | 보정 전 포함률 | 보정 후 포함률 | 판정 |
-|---|---:|---:|---|
-| 2020~2021 내부 평가 | 74.79% | 82.71% | 내부 평균 개선 확인 |
-| 2026년 7개 기준일 | 54.29% | 57.86% | 목표 80% 미달 |
+```text
+q0.1: 하한 시나리오
+q0.5: 중앙 시나리오
+q0.9: 상한 시나리오
+```
 
-2018~2019에서 계산한 고정 대칭 보정값 `3.008544921875원`은 2026년 신규 소표본에서 재현되지 않았습니다. 따라서 원시 분위수와 보정 구간 모두 확정적인 80% 신뢰구간이 아니라 **참고용 위험 시나리오**입니다.
+과거 평가에서 q0.1~q0.9 범위가 목표 포함률 80%를 안정적으로 달성하지 못했습니다. 따라서 서비스에서는 다음처럼 사용합니다.
 
-## 환위험 분석
+- `하한·중앙·상한 참고 시나리오`로 표시합니다.
+- `검증된 80% 신뢰구간`으로 표시하지 않습니다.
+- 미래 환율이 해당 범위에 포함된다고 보장하지 않습니다.
 
-예측 결과를 기업 계약과 연결하는 계산 엔진이 구현돼 있습니다.
+## 환위험 계산
 
-- 지급 또는 수취 계약
-- 외화 금액과 결제일
-- 현재 기준환율
+`src/hedging/`에는 예측 시나리오를 USD 계약의 원화 금액으로 변환하는 계산 모듈이 있습니다.
+
+- 지급 또는 수취 구분
+- 외화 계약 금액
+- 결제 예정일
+- 기준환율
 - 헤지 금액 또는 헤지 비율
 - 헤지 환율
 - 시나리오별 원화 지급·수취액
-- 기준환율 대비 유리·불리 손익
-- 완전 무헤지 대비 헤지 효과
-- JSON·CSV 결과 저장
+- 기준환율 대비 손익
+- 무헤지 대비 헤지 효과
+- JSON·CSV 출력
 
-USD 1,000,000, 50% 헤지, 기준환율과 헤지환율 1,548.4원, 결제일 2026-07-30인 가상 지급 계약의 결과는 다음과 같습니다.
+현재 모듈은 계산 엔진입니다. 은행 스프레드, 선물환 가격, 옵션 프리미엄, 세금, 신용위험 및 금융상품 적합성 판단은 포함하지 않습니다.
 
-| 시나리오 | 환율 | 총 원화 지급액 | 기준 대비 유리한 손익 |
-|---|---:|---:|---:|
-| 앙상블 점 예측 | 1,549.9249 | 1,549,162,427원 | -762,427원 |
-| Chronos 하한 | 1,508.3633 | 1,528,381,641원 | +20,018,359원 |
-| Chronos 중앙 | 1,551.4497 | 1,549,924,854원 | -1,524,854원 |
-| Chronos 상한 | 1,595.5544 | 1,571,977,222원 | -23,577,222원 |
+## 프로젝트 구조
 
-수취 계약은 같은 총 원화 금액을 사용하되 기업에 유리한 손익의 부호가 반대입니다. 이 기능은 위험 시나리오 계산용이며 특정 금융상품이나 최적 헤지 비율을 추천하지 않습니다.
+```text
+fx-chronos/
+├── AGENTS.MD
+├── README.md
+├── requirements.txt
+├── configs/
+│   ├── ensemble.json
+│   ├── evaluation.json
+│   ├── h60_ensemble_validation.json
+│   ├── h90_ensemble_validation.json
+│   ├── hedge_example.json
+│   └── hedge_example_receipt.json
+├── data/
+│   ├── raw/ecos/
+│   └── processed/
+├── src/
+│   ├── data/
+│   │   ├── collect_ecos.py
+│   │   └── preprocess.py
+│   ├── models/
+│   │   ├── baseline.py
+│   │   └── zero_shot.py
+│   ├── evaluation/
+│   │   ├── backtest.py
+│   │   ├── evaluate.py
+│   │   ├── evaluate_shrunk_ensemble.py
+│   │   ├── analyze_shrunk_ensemble.py
+│   │   ├── evaluate_locked_ensemble_2026.py
+│   │   ├── evaluate_h60_locked_ensemble.py
+│   │   ├── evaluate_h90_locked_ensemble.py
+│   │   └── plot_locked_hybrid_forecast.py
+│   └── hedging/
+├── outputs/
+│   ├── forecasts/
+│   │   ├── core/
+│   │   └── ensemble/
+│   ├── metrics/
+│   │   ├── core/
+│   │   └── ensemble/
+│   ├── figures/
+│   └── hedge_analysis/
+├── tests/
+├── docs/
+└── archive/retired_20260802/
+```
 
-## 구현 기능
-
-- ECOS `StatisticSearch` 항목 지정 및 전체 페이지 수집
-- 원본 JSON 스냅샷과 처리 CSV 분리 보존
-- 통계표·항목·단위·날짜·숫자값·중복 검증
-- 주말 관측 분리와 감사 CSV 생성
-- Chronos-2 단변량 Zero-shot 예측과 분위수 출력
-- Random Walk 기준 모델
-- 시간순 Walk-forward 백테스트
-- MAE, RMSE, 방향 정확도, Pinball Loss, 구간 포함률과 폭 평가
-- Chronos-2 LoRA 학습·선택·최종 Test
-- Random Walk/Chronos 축소 앙상블과 잠금 평가
-- 예측 구간 보정의 내부·신규 구간 평가
-- 공통 예측 시나리오 인터페이스
-- 지급·수취 환위험 계산 및 결과 내보내기
-- 11개 단위 테스트
+`archive/retired_20260802/`에는 현재 서비스 범위에서 사용하지 않는 외생변수, JPY, 로그수익률, LoRA, 예측구간 보정 및 구형 horizon 실험이 보존돼 있습니다. 활성 실행 경로에는 포함하지 않습니다.
 
 ## 실행 환경
 
-검증된 환경은 Apple Silicon macOS, Python 3.14.6입니다.
+검증 환경:
 
 ```text
-numpy==2.5.1
-pandas==3.0.5
-matplotlib==3.11.1
-torch==2.13.0
-chronos-forecasting==2.3.1
-peft==0.20.0
+OS: macOS
+Architecture: arm64
+Python: 3.14.6
+PyTorch: 2.13.0
+chronos-forecasting: 2.3.1
+Device: MPS
 ```
 
-환경 생성:
+고정 패키지 버전은 `requirements.txt`에 기록돼 있습니다.
 
 ```bash
 cd fx-chronos
@@ -174,69 +218,196 @@ python3.14 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-ECOS 수집에는 환경변수 `ECOS_API_KEY`가 필요합니다. 실제 키를 코드나 저장소에 기록하지 않습니다.
+## 실행
 
-전체 단위 테스트:
+### 테스트
 
-```bash
-fx-chronos/.venv/bin/python -B -m unittest discover -s fx-chronos/tests -v
-```
-
-환위험 예시 실행:
+프로젝트 디렉터리에서 실행합니다.
 
 ```bash
-fx-chronos/.venv/bin/python -B fx-chronos/src/run_hedge_analysis.py \
-  --config fx-chronos/configs/hedge_example.json
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-수집·평가·분석 스크립트는 기존 결과를 조용히 덮어쓰지 않습니다. 동일 설정을 다시 실행할 때는 출력 파일의 보존 여부와 새 저장 경로를 먼저 확인해야 합니다.
+현재 활성 테스트는 25개입니다.
 
-## 저장소 구조
+### ECOS 수집
+
+ECOS API 호출에는 `ECOS_API_KEY` 환경변수가 필요합니다. 실제 키를 코드, 설정, 로그 또는 저장소에 기록하지 않습니다.
+
+```bash
+ECOS_API_KEY="실제 키" .venv/bin/python -m src.data.collect_ecos
+```
+
+수집기는 ECOS 통계표·항목·단위·날짜·숫자값과 페이지 수를 검증하고 원본 JSON 및 처리 CSV를 분리합니다. 기존 결과 파일은 자동으로 덮어쓰지 않습니다.
+
+### 전처리
+
+```bash
+.venv/bin/python -m src.data.preprocess
+```
+
+### 앙상블 평가
+
+```bash
+.venv/bin/python -m src.evaluation.evaluate_h60_locked_ensemble
+.venv/bin/python -m src.evaluation.evaluate_h90_locked_ensemble
+```
+
+두 평가는 MPS를 요구하며 입력 데이터와 H20 α 선택 파일의 SHA-256을 실행 전에 확인합니다. 기존 산출물이 있으면 덮어쓰지 않고 중단합니다.
+
+### 환위험 계산 예시
+
+```bash
+.venv/bin/python -m src.hedging.run_hedge_analysis \
+  --config configs/hedge_example.json
+```
+
+예시 출력이 이미 있으면 덮어쓰지 않고 중단합니다.
+
+## FastAPI 내부 API
+
+FastAPI는 기존 `analyze_fx_exposure()` 계산을 HTTP로 제공합니다. API 라우터는 환위험 계산식을 다시 구현하지 않으며 메모리에 준비된 예측 시나리오와 기존 도메인 함수를 연결합니다.
+
+```http
+POST /internal/hedge-analysis
+Content-Type: application/json
+```
+
+로컬 실행:
+
+```bash
+.venv/bin/uvicorn src.api.main:app \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --workers 1
+```
+
+요청 예시:
+
+```bash
+curl -X POST http://127.0.0.1:8000/internal/hedge-analysis \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "currency_pair": "USD/KRW",
+    "side": "PAYABLE",
+    "foreign_amount": 1000000,
+    "settlement_date": "2026-10-30",
+    "reference_rate": 1548.4,
+    "hedged_amount": 500000,
+    "hedge_rate": 1548.4
+  }'
+```
+
+응답은 기존 `HedgeAnalysisResult` 전체 구조를 보존합니다.
+
+```json
+{
+  "currency_pair": "USD/KRW",
+  "side": "payment",
+  "settlement_date": "2026-10-30",
+  "foreign_amount": 1000000.0,
+  "hedged_amount": 500000.0,
+  "unhedged_amount": 500000.0,
+  "hedge_ratio": 0.5,
+  "risk_direction": "환율 상승 시 원화 지급액 증가로 불리",
+  "forecast_model_name": "amazon/chronos-2 + Random Walk fixed alpha=0.5 H90",
+  "scenario_source": "shrunk_ensemble",
+  "scenarios": [
+    {
+      "scenario_name": "point",
+      "fx_rate": 1451.8048,
+      "hedged_krw_amount": 774200000.0,
+      "unhedged_krw_amount": 725902380.0,
+      "total_krw_amount": 1500102380.0,
+      "fully_unhedged_krw_amount": 1451804760.0,
+      "reference_krw_amount": 1548400000.0,
+      "favorable_pnl_vs_reference_krw": 48297620.0,
+      "hedge_effect_vs_unhedged_krw": -48297620.0
+    }
+  ],
+  "warnings": ["Chronos 분위수는 참고용 시나리오입니다."]
+}
+```
+
+위 값은 2026-08-03 로컬 실행에서 현재 처리 데이터와 모델 캐시로 확인한 응답 예시입니다. 데이터 스냅샷이나 모델 환경이 달라지면 예측값과 원화 금액도 달라집니다.
+
+API의 `side` 입력은 다음 두 값만 허용합니다.
 
 ```text
-dong-k-k/
-├── fx-chronos/
-│   ├── AGENTS.MD             # 환율 예측 프로젝트 원칙과 의사결정
-│   ├── README.md             # 환율 예측 프로젝트 결과 요약
-│   ├── docs/                 # 데이터·모델 설명과 결과 보고서
-│   ├── configs/              # 평가·앙상블·보정·환위험 설정
-│   ├── data/
-│   │   ├── raw/              # ECOS 원본 응답 스냅샷
-│   │   └── processed/        # 처리 데이터와 주말 감사 데이터
-│   ├── outputs/
-│   │   ├── forecasts/        # 예측 결과
-│   │   ├── metrics/          # 평가 지표와 판정 기록
-│   │   ├── figures/          # 결과 시각화
-│   │   └── hedge_analysis/   # 환위험 JSON·CSV
-│   ├── src/                  # 수집·예측·평가·환위험 코드
-│   ├── tests/                # 단위 테스트
-│   └── requirements.txt      # 검증된 의존성 버전
-└── financial-product-rag/    # 팀원이 구현할 금융상품 추천 RAG 영역
+PAYABLE   → 기존 ExposureSide.PAYMENT
+RECEIVABLE → 기존 ExposureSide.RECEIPT
 ```
 
-## 현재 제한 사항
+서버 시작 시 Chronos-2를 한 번 로딩하고 동일한 최근 756개 관측에서 H20·H60·H90을 각각 생성합니다. 각 경로에 고정 `α=0.5` 앙상블을 적용한 뒤 하나의 메모리 스냅샷으로 보관합니다. 요청은 결제일을 포함하는 가장 짧은 horizon을 H20, H60, H90 순으로 선택합니다.
 
-- 현재 검증 통화는 USD/KRW 하나입니다.
-- 현재 집중 예측 길이는 20개 실제 평일 관측입니다. 60일은 연구 대상이고 90일·180일은 보류 상태입니다.
-- 2022~2025 최종 Test에서는 Random Walk가 Chronos 계열보다 우수했습니다.
-- 2026년 앙상블 평가는 기준일이 7개뿐이므로 운영 성능을 확정할 수 없습니다.
-- Chronos 분위수는 목표 포함률을 안정적으로 달성하지 못했습니다.
-- ECOS 매매기준율은 시장 종가나 실제 은행 고객 적용환율과 같지 않습니다.
-- 환위험 계산에는 은행 스프레드, 수수료, 세금, 상품 조건과 신용위험이 포함되지 않습니다.
-- 외생변수와 다통화 확장은 아직 현재 모델에 포함되지 않았습니다.
+매일 `03:00 Asia/Seoul`에 새 모델과 예측 스냅샷을 준비합니다. 전체 생성이 성공한 뒤에만 메모리 참조를 교체하고 실패하면 기존 정상 스냅샷을 유지하며 로그를 남깁니다. 로컬 데이터 파일이 갱신되지 않았다면 같은 입력을 다시 예측합니다. ECOS 자동 수집은 이 스케줄에 포함되지 않습니다.
 
-## 상세 문서
+미래 날짜는 월요일~금요일 기준 임시 날짜입니다. 한국 공휴일을 별도로 제외하지 않으며 결제일이 메모리 예측 날짜 또는 90개 관측 범위에 없으면 422를 반환합니다. 가까운 날짜로 자동 이동하지 않습니다.
 
-- [ECOS 데이터 정의와 조사 결과](docs/ecos-static.md)
-- [Chronos-2 사용 정의](docs/chronos.md)
-- [재현성과 현재 모델 판정](docs/reproducibility.md)
-- [LoRA 및 최종 Test 결과](docs/results/usdkrw_h20_lora_evaluation.md)
-- [축소 앙상블 Validation](docs/results/usdkrw_h20_shrunk_ensemble_validation.md)
-- [축소 앙상블 2026년 고정 평가](docs/results/usdkrw_h20_shrunk_ensemble_2026_locked.md)
-- [예측 구간 내부 보정 평가](docs/results/usdkrw_h20_interval_calibration_internal.md)
-- [예측 구간 2026년 고정 평가](docs/results/usdkrw_h20_interval_calibration_2026_locked.md)
-- [환위험 분석 예시](docs/results/usdkrw_hedge_analysis_examples.md)
+현재 상태 확인 API(`/health`, `/ready`)는 제공하지 않습니다. 초기 MVP는 프로세스 내부 스케줄러 중복을 막기 위해 Uvicorn worker를 1개로 실행합니다.
 
-## 해석 원칙
+## Docker
 
-이 프로젝트의 결과는 환율 위험을 수치화하기 위한 연구·의사결정 보조 자료입니다. 예측값은 미래 환율을 보장하지 않으며, 예측 결과만으로 특정 금융상품 가입이나 헤지 비율을 자동 결정하지 않습니다.
+빌드:
+
+```bash
+docker build -t fx-chronos-api .
+```
+
+실행:
+
+```bash
+docker run --rm \
+  -p 8000:8000 \
+  -v fx-chronos-hf-cache:/opt/huggingface-cache \
+  fx-chronos-api
+```
+
+Docker 이미지는 Python 3.14와 CPU PyTorch를 사용하며 Uvicorn worker 1개로 실행합니다. Hugging Face 캐시 볼륨을 유지하면 컨테이너를 다시 만들 때 모델 파일을 재사용할 수 있습니다. 소스·설정·처리 데이터는 이미지에 포함하고 `.venv`, Git 메타데이터, 원본 데이터, 백테스트 출력, 테스트, 문서와 아카이브는 제외합니다.
+
+AWS 배포, 내부 인증, 상태 확인 API, 백엔드·프론트엔드 연동은 현재 범위에 포함되지 않습니다.
+
+## 주요 산출물
+
+| 내용 | 경로 |
+|---|---|
+| H20 Validation 예측 | `outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021.csv` |
+| H20 2026 고정 예측 | `outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv` |
+| H60 Validation 예측 | `outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h60_ctx756_alpha0.5_validation_2018_2021.csv` |
+| H90 Validation 예측 | `outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h90_ctx756_alpha0.5_validation_2018_2021.csv` |
+| H20 결과 문서 | `docs/results/usdkrw_h20_shrunk_ensemble_validation.md` |
+| H60 결과 문서 | `docs/results/usdkrw_h60_locked_ensemble_validation.md` |
+| H90 결과 문서 | `docs/results/usdkrw_h90_locked_ensemble_validation.md` |
+
+## 현재 상태
+
+구현 완료:
+
+- USD/KRW ECOS 수집과 원본 보존
+- 주말 감사 분리와 무보간 모델 데이터
+- Chronos-2 Zero-shot 및 Random Walk
+- 고정 `α=0.5` 축소 앙상블
+- 20·60·90영업일 Walk-forward 평가
+- 분위수 참고 시나리오
+- USD 지급·수취 환위험 계산 모듈
+- 최신 H20·H60·H90 예측을 메모리에 보관하는 FastAPI 내부 API
+
+별도 연결 대상:
+
+- 웹 또는 앱 사용자 인터페이스
+- 실제 기업 계약과 금융상품 조건을 이용한 환헤지 전략 검증
+
+## 결과 문서
+
+- [H20 축소 앙상블 Validation](docs/results/usdkrw_h20_shrunk_ensemble_validation.md)
+- [H20 2026 고정 평가](docs/results/usdkrw_h20_shrunk_ensemble_2026_locked.md)
+- [H60 고정 앙상블 Validation](docs/results/usdkrw_h60_locked_ensemble_validation.md)
+- [H90 고정 앙상블 Validation](docs/results/usdkrw_h90_locked_ensemble_validation.md)
+- [환위험 계산 예시](docs/results/usdkrw_hedge_analysis_examples.md)
+- [ECOS 데이터 정의](docs/ecos-static.md)
+- [Chronos-2 기술 정리](docs/chronos.md)
+- [재현성 기록](docs/reproducibility.md)
+
+## 해석 범위
+
+예측값은 미래 환율을 보장하지 않습니다. 이 프로젝트는 환율 경로와 원화 금액 시나리오를 제공하는 분석 도구이며 특정 금융상품 가입이나 헤지 비율을 자동 결정하지 않습니다.

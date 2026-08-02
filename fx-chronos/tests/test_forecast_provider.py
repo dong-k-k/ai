@@ -12,7 +12,7 @@ import pandas as pd
 SRC_DIR = Path(__file__).resolve().parent.parent / "src"
 sys.path.insert(0, str(SRC_DIR))
 
-from forecast_provider import (  # noqa: E402
+from src.hedging.forecast_provider import (  # noqa: E402
     ForecastScenario,
     ScenarioSource,
     load_forecast_scenario_from_csv,

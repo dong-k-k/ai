@@ -1,0 +1,29 @@
+{
+  "series_id": "DGS3",
+  "series_name": "Market Yield on U.S. Treasury Securities at 3-Year Constant Maturity, Quoted on an Investment Basis",
+  "project_column_name": "us_treasury_3y_percent",
+  "unit": "Percent",
+  "frequency": "Daily",
+  "seasonal_adjustment": "Not Seasonally Adjusted",
+  "source": "Board of Governors of the Federal Reserve System (US)",
+  "release": "H.15 Selected Interest Rates",
+  "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS3&cosd=2024-07-01&coed=2024-07-10",
+  "collected_at_utc": "2026-08-02T11:54:45.453526+00:00",
+  "availability_policy": "pending H.15 point-in-time alignment; do not join by observation date",
+  "quality_summary": {
+    "requested_start": "2024-07-01",
+    "requested_end": "2024-07-10",
+    "raw_rows": 8,
+    "processed_rows": 8,
+    "first_date": "2024-07-01",
+    "last_date": "2024-07-10",
+    "duplicate_date_rows": 0,
+    "empty_value_rows": 1,
+    "numeric_conversion_failures": 0,
+    "outside_period_rows": 0,
+    "nonpositive_value_rows": 0,
+    "minimum_value": 4.37,
+    "maximum_value": 4.58,
+    "dates_monotonic_increasing": true
+  }
+}

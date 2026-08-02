@@ -1,0 +1,2 @@
+split,origins,rows,covariate_mae,univariate_mae,random_walk_mae,covariate_rmse,univariate_rmse,random_walk_rmse,covariate_direction_accuracy,univariate_direction_accuracy,random_walk_direction_accuracy,interval_80_coverage,interval_mean_width
+validation_2018_2021,48,960,11.996554616292318,11.968236440022787,12.259791666666668,15.71525790084917,15.724911575522476,15.967171399468336,0.6208333333333333,0.6364583333333333,0.0125,0.7416666666666667,35.0341988881429

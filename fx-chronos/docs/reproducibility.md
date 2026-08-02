@@ -83,7 +83,7 @@ data/processed/audit/usd_krw_removed_weekends_19640504_20260730.csv
 ### 1. ECOS 수집
 
 ```bash
-.venv/bin/python src/collect_ecos.py
+.venv/bin/python -m src.data.collect_ecos
 ```
 
 API 요청 전 가려진 URL과 조회 기간을 확인한다. 기존 원본 JSON은 덮어쓰지 않는다.
@@ -91,7 +91,7 @@ API 요청 전 가려진 URL과 조회 기간을 확인한다. 기존 원본 JSO
 ### 2. 모델용 데이터 생성
 
 ```bash
-.venv/bin/python src/preprocess.py
+.venv/bin/python -m src.data.preprocess
 ```
 
 평일 모델 시계열과 제거된 주말 관측 감사 파일을 분리한다.
@@ -99,8 +99,8 @@ API 요청 전 가려진 URL과 조회 기간을 확인한다. 기존 원본 JSO
 ### 3. 기본 예측과 기준 모델
 
 ```bash
-.venv/bin/python src/zero_shot.py
-.venv/bin/python src/baseline.py
+.venv/bin/python -m src.models.zero_shot
+.venv/bin/python -m src.models.baseline
 ```
 
 Zero-shot은 모델 로딩 또는 다운로드가 발생할 수 있다. 출력 파일이 이미 존재하는 경우 덮어쓰기 정책을 먼저 확인한다.
@@ -108,18 +108,18 @@ Zero-shot은 모델 로딩 또는 다운로드가 발생할 수 있다. 출력 �
 ### 4. 월별 Walk-forward와 평가
 
 ```bash
-.venv/bin/python src/backtest.py
-.venv/bin/python src/evaluate.py
-.venv/bin/python src/split_backtest.py
-.venv/bin/python src/evaluate_validation.py
+.venv/bin/python -m src.evaluation.backtest
+.venv/bin/python -m src.evaluation.evaluate
+.venv/bin/python -m src.evaluation.split_backtest
+.venv/bin/python -m src.evaluation.evaluate_validation
 ```
 
 주요 산출물:
 
 ```text
-outputs/forecasts/usd_krw_walk_forward_h20_monthly_1997_2025.csv
-outputs/metrics/usd_krw_walk_forward_h20_monthly_1997_2025_split_manifest.csv
-outputs/metrics/usd_krw_walk_forward_h20_monthly_validation_2018_2021_summary.csv
+outputs/forecasts/core/usd_krw_walk_forward_h20_monthly_1997_2025.csv
+outputs/metrics/core/usd_krw_walk_forward_h20_monthly_1997_2025_split_manifest.csv
+outputs/metrics/core/usd_krw_walk_forward_h20_monthly_validation_2018_2021_summary.csv
 ```
 
 일부 명령은 기존 파일 덮어쓰기를 의도적으로 거부한다. 재현을 위해 기존 결과를 삭제하지 말고, 새 출력 경로나 별도 작업 복사본을 사용한다.
@@ -135,11 +135,11 @@ chronos2_lora_h20_ctx756_lr1e-5_steps300_seed42
 관련 실행 파일:
 
 ```text
-src/prepare_finetuning.py
-src/benchmark_lora_devices.py
-src/compare_zero_shot_contexts.py
-src/finetune_lora_candidate.py
-src/evaluate_final_test.py
+src/models/prepare_finetuning.py
+src/models/benchmark_lora_devices.py
+src/evaluation/compare_zero_shot_contexts.py
+src/models/finetune_lora_candidate.py
+src/evaluation/evaluate_final_test.py
 ```
 
 `evaluate_final_test.py`는 이미 한 차례 평가한 2022~2025 최종 Test용이다. 현재 결과를 개선하기 위한 설정 선택이나 반복 실행에 사용하지 않는다. 새 하이브리드 설정은 개발·Validation 구간에서만 선택하고, 고정 후 가능한 경우 2026년 신규 관측치로 평가한다.

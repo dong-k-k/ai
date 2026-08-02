@@ -1,0 +1,29 @@
+{
+  "series_id": "DTWEXBGS",
+  "series_name": "Nominal Broad U.S. Dollar Index",
+  "project_column_name": "broad_usd_index",
+  "unit": "Index Jan 2006=100",
+  "frequency": "Daily",
+  "seasonal_adjustment": "Not Seasonally Adjusted",
+  "source": "Board of Governors of the Federal Reserve System (US)",
+  "release": "H.10 Foreign Exchange Rates",
+  "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2024-01-01&coed=2024-03-31",
+  "collected_at_utc": "2026-08-02T07:36:58.175437+00:00",
+  "availability_policy": "pending point-in-time release-date alignment; do not join by observation date",
+  "quality_summary": {
+    "requested_start": "2024-01-01",
+    "requested_end": "2024-03-31",
+    "raw_rows": 64,
+    "processed_rows": 64,
+    "first_date": "2024-01-02",
+    "last_date": "2024-03-29",
+    "duplicate_date_rows": 0,
+    "empty_value_rows": 2,
+    "numeric_conversion_failures": 0,
+    "outside_period_rows": 0,
+    "nonpositive_value_rows": 0,
+    "minimum_value": 119.2506,
+    "maximum_value": 121.5202,
+    "dates_monotonic_increasing": true
+  }
+}

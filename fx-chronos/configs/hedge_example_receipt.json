@@ -12,7 +12,7 @@
     "hedge_rate": 1548.4
   },
   "forecast": {
-    "csv_path": "outputs/forecasts/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv",
+    "csv_path": "outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv",
     "requested_origin": "2026-07-01",
     "model_name": "Random Walk + Chronos-2 shrunk ensemble alpha=0.5",
     "scenario_source": "shrunk_ensemble",

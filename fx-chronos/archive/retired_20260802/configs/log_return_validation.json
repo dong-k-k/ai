@@ -1,0 +1,25 @@
+{
+  "config_version": 1,
+  "experiment": "usd_krw_log_return_target",
+  "validation": {
+    "period": "2018-01-01~2021-12-31",
+    "expected_origins": 48,
+    "expected_rows": 960,
+    "context_length": 756,
+    "prediction_length": 20,
+    "device": "mps",
+    "batch_size": 8,
+    "cross_learning": false
+  },
+  "candidate_entry_criteria": {
+    "lower_mae_than_level_chronos": true,
+    "lower_rmse_than_level_chronos": true,
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true,
+    "minimum_origin_mae_wins_vs_level_chronos": 25,
+    "minimum_origin_rmse_wins_vs_level_chronos": 25,
+    "all_forecast_origins_must_match_reference": true
+  },
+  "interval_policy": "Do not reconstruct level intervals by cumulatively summing marginal log-return quantiles.",
+  "test_reuse_policy": "Do not inspect or use 2022-2025 final-test rows in this experiment."
+}

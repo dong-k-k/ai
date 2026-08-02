@@ -94,11 +94,11 @@ fx-chronos/configs/ensemble.json
 fx-chronos/src/evaluate_locked_ensemble_2026.py
 
 예측 결과
-fx-chronos/outputs/forecasts/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv
+fx-chronos/outputs/forecasts/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked.csv
 
 요약 지표
-fx-chronos/outputs/metrics/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked_summary.csv
+fx-chronos/outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked_summary.csv
 
 판정 기록
-fx-chronos/outputs/metrics/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked_decision.json
+fx-chronos/outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_alpha0.5_2026_locked_decision.json
 ```
