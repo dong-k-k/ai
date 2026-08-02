@@ -411,7 +411,10 @@ class ScoredCandidate(BaseModel):
     priority: int | None
     eligibility: EligibilityResult
     fit_score: int
-    score_reasons: list[str]
+    # (우선순위, 문장) 튜플 목록 — ReasonRank(scoring_config.py) 값과 사람이
+    # 읽을 문장. card_builder._select_reasons()가 우선순위로 정렬해 상위
+    # 3개만 recommendationReasons로 내보낸다.
+    score_reasons: list[tuple[int, str]]
     # 수출입 겸업 혼합 계약: 이 후보가 커버하는 노출 그룹(방향×통화) 정보.
     exposure_group_id: str
     covered_trade_direction: str

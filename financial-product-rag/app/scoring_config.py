@@ -12,6 +12,25 @@ eligibility.py의 pendingConditions로만 표현된다.
 """
 from __future__ import annotations
 
+from enum import IntEnum
+
+
+class ReasonRank(IntEnum):
+    """사용자에게 보여줄 recommendationReasons의 우선순위. 숫자가 작을수록
+    먼저 보여준다 — card_builder._select_reasons()가 이 값으로 정렬해
+    상위 3개만 남긴다. 카테고리 정의와 순서는 프로덕트 요구사항(추천 근거는
+    ①실제 환율 위험 감소 효과 ②수출입 방향 적합성 ③계약 만기·상품 이용기간
+    적합성 ④통화 지원 범위 적합성 ⑤리스크 성향·헤지목표 적합성 ⑥상품 특징·
+    제한 순으로 중요하다)을 그대로 반영한다."""
+
+    RISK_EFFECT = 1
+    TRADE_DIRECTION = 2
+    TERM_FIT = 3
+    CURRENCY_FIT = 4
+    RISK_PREFERENCE = 5
+    FEATURE_OR_CAUTION = 6
+
+
 WEIGHTS: dict[str, int] = {
     # 1. strategyType 직접 일치
     "strategy_type_match": 40,

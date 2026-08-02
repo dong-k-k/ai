@@ -75,6 +75,25 @@ def _clean(items: list[str]) -> list[str]:
     return out
 
 
+def _select_reasons(score_reasons: list[tuple[int, str]]) -> list[str]:
+    """recommendationReasons 최종 선정: 우선순위(ReasonRank, 숫자가 작을수록
+    중요)로 정렬 → 배너 문구 제거 → 중복 문장 제거 → 최대 3개만 남기고
+    각 70자로 자른다. 우선순위는 recommender.py가 문장을 만들 때 이미
+    정해 붙여둔 값을 그대로 쓴다 — 여기서는 정렬·선별만 한다."""
+    ordered = [text for _, text in sorted(score_reasons, key=lambda item: item[0])]
+    cleaned = _clean(ordered)
+    selected: list[str] = []
+    seen: set[str] = set()
+    for text in cleaned:
+        if text in seen:
+            continue
+        seen.add(text)
+        selected.append(text)
+        if len(selected) == 3:
+            break
+    return [_truncate(text, 70) for text in selected]
+
+
 def _channel_labels(channels: list[str]) -> list[str]:
     return [_CHANNEL_LABEL.get(c, c) for c in channels]
 
@@ -109,8 +128,7 @@ def build_card(
 
     evidence = get_product_evidence(product)
 
-    reasons = _clean(candidate.score_reasons)[:3]
-    reasons = [_truncate(r, 70) for r in reasons]
+    reasons = _select_reasons(candidate.score_reasons)
 
     status = candidate.eligibility.status
     recommendation_mode = "RM_REVIEW_REQUIRED" if product["recommendation_mode"] == "RM_REVIEW_REQUIRED" else "STANDARD"
