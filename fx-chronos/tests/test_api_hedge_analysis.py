@@ -7,6 +7,7 @@ from unittest.mock import patch
 from zoneinfo import ZoneInfo
 
 import numpy as np
+import pandas as pd
 from fastapi.testclient import TestClient
 
 from src.api.forecast_service import ForecastService, ForecastSnapshot
@@ -16,6 +17,7 @@ from src.hedging.forecast_provider import ForecastScenario, ScenarioSource
 
 
 SETTLEMENT_DATE = date(2026, 10, 30)
+SEOUL = ZoneInfo("Asia/Seoul")
 
 
 def scenario() -> ForecastScenario:
@@ -35,10 +37,29 @@ def scenario() -> ForecastScenario:
     )
 
 
+def h90_scenario() -> ForecastScenario:
+    dates = tuple(pd.bdate_range("2026-07-31", periods=90).date)
+    return ForecastScenario(
+        model_name="test fixed alpha ensemble H90",
+        scenario_source=ScenarioSource.SHRUNK_ENSEMBLE,
+        currency_pair="USD/KRW",
+        unit="KRW per USD",
+        forecast_origin=date(2026, 7, 30),
+        prediction_length=90,
+        forecast_dates=dates,
+        point_forecast=tuple(1500.0 + index for index in range(90)),
+        lower_scenario=tuple(1450.0 + index for index in range(90)),
+        median_scenario=tuple(1502.0 + index for index in range(90)),
+        upper_scenario=tuple(1550.0 + index for index in range(90)),
+        warning="test warning",
+    )
+
+
 class FakeForecastService:
     def __init__(self) -> None:
         self.initialize_calls = 0
         self.forecast_calls = 0
+        self.h90_calls = 0
 
     def initialize(self) -> None:
         self.initialize_calls += 1
@@ -48,6 +69,10 @@ class FakeForecastService:
         if settlement_date != SETTLEMENT_DATE:
             raise ValueError("결제일이 예측 범위에 없습니다.")
         return scenario()
+
+    def h90_forecast(self) -> tuple[datetime, ForecastScenario]:
+        self.h90_calls += 1
+        return datetime(2026, 8, 3, 3, 0, tzinfo=SEOUL), h90_scenario()
 
 
 VALID_REQUEST = {
@@ -111,6 +136,40 @@ class HedgeAnalysisApiTest(unittest.TestCase):
                 payload = {**VALID_REQUEST, **change}
                 response = self.client.post("/internal/hedge-analysis", json=payload)
                 self.assertEqual(response.status_code, 422)
+
+
+class FxForecastApiTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.service = FakeForecastService()
+        self.client_context = TestClient(
+            create_app(forecast_service=self.service, enable_scheduler=False)
+        )
+        self.client = self.client_context.__enter__()
+
+    def tearDown(self) -> None:
+        self.client_context.__exit__(None, None, None)
+
+    def test_returns_complete_h90_forecast_without_model_reload(self) -> None:
+        response = self.client.get("/internal/fx-forecast")
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(body["currency_pair"], "USD/KRW")
+        self.assertEqual(body["horizon"], 90)
+        self.assertEqual(len(body["forecast"]), 90)
+        self.assertEqual(
+            list(body["forecast"][0]),
+            ["date", "point", "lower", "median", "upper"],
+        )
+        dates = [row["date"] for row in body["forecast"]]
+        self.assertEqual(dates, sorted(dates))
+        self.assertGreater(dates[0], body["forecast_origin"])
+        self.assertEqual(self.service.h90_calls, 1)
+        self.assertEqual(self.service.initialize_calls, 1)
+
+    def test_does_not_return_history(self) -> None:
+        response = self.client.get("/internal/fx-forecast")
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("history", response.json())
 
 
 class FakePipeline:

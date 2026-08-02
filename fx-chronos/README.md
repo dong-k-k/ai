@@ -228,7 +228,7 @@ python3.14 -m venv .venv
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-현재 활성 테스트는 25개입니다.
+현재 활성 테스트는 27개입니다.
 
 ### ECOS 수집
 
@@ -345,6 +345,14 @@ RECEIVABLE → 기존 ExposureSide.RECEIPT
 미래 날짜는 월요일~금요일 기준 임시 날짜입니다. 한국 공휴일을 별도로 제외하지 않으며 결제일이 메모리 예측 날짜 또는 90개 관측 범위에 없으면 422를 반환합니다. 가까운 날짜로 자동 이동하지 않습니다.
 
 현재 상태 확인 API(`/health`, `/ready`)는 제공하지 않습니다. 초기 MVP는 프로세스 내부 스케줄러 중복을 막기 위해 Uvicorn worker를 1개로 실행합니다.
+
+프론트의 환율 예측 그래프에는 H90 메모리 경로 전체를 제공합니다.
+
+```http
+GET /internal/fx-forecast
+```
+
+요청 파라미터와 본문은 없습니다. 응답의 `forecast` 배열은 미래 예측 90개이며 각 행은 `date`, 앙상블 `point`, Chronos `lower`, `median`, `upper`를 포함합니다. 과거 실제 환율은 반환하지 않습니다.
 
 ## Docker
 

@@ -194,3 +194,10 @@ class ForecastService:
             "결제일이 현재 90개 예측 관측 범위에 없거나 임시 평일 날짜가 아닙니다: "
             f"지원 범위={first_date.isoformat()}~{last_date.isoformat()}"
         )
+
+    def h90_forecast(self) -> tuple[datetime, ForecastScenario]:
+        """동일 스냅샷의 생성 시각과 H90 예측을 함께 반환한다."""
+        with self._lock:
+            if self._snapshot is None:
+                raise RuntimeError("예측 리소스가 아직 준비되지 않았습니다.")
+            return self._snapshot.created_at, self._snapshot.forecasts[90]
