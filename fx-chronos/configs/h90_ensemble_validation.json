@@ -1,0 +1,35 @@
+{
+  "config_version": 1,
+  "target": "USD/KRW",
+  "model_id": "amazon/chronos-2",
+  "input_snapshot": {
+    "path": "data/processed/usd_krw_model_weekdays_19640504_20260730.csv",
+    "sha256": "0d6adc690451da08001ed97f4f311f2f7884beb3695fb4bddb6c300681705e7b"
+  },
+  "alpha_provenance_snapshot": {
+    "path": "outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_selection.json",
+    "sha256": "c1d96d8795830196e65c70096e832f684c41c03a458cdcd8e013a940b1db1fe4"
+  },
+  "validation": {
+    "selection_split": "validation_2018_2021",
+    "requested_origin_start": "2018-01-01",
+    "requested_origin_end": "2021-08-01",
+    "target_start": "2018-01-01",
+    "target_end": "2021-12-31",
+    "expected_origins": 44,
+    "expected_rows": 3960,
+    "context_length": 756,
+    "prediction_length": 90,
+    "alpha": 0.5,
+    "alpha_reselected_for_h90": false,
+    "device": "mps",
+    "batch_size": 8,
+    "origin_chunk_size": 8,
+    "cross_learning": false
+  },
+  "success_criteria": {
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true
+  },
+  "test_data_policy": "Do not include targets after 2021-12-31 and do not reselect alpha from H90 results."
+}

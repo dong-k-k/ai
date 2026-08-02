@@ -150,13 +150,13 @@ Forecast Provider 테스트: 통과
 
 ```text
 공통 예측 인터페이스
-fx-chronos/src/forecast_provider.py
+fx-chronos/src/hedging/forecast_provider.py
 
 환위험 계산 엔진
-fx-chronos/src/hedge_analysis.py
+fx-chronos/src/hedging/hedge_analysis.py
 
 설정 기반 실행
-fx-chronos/src/run_hedge_analysis.py
+fx-chronos/src/hedging/run_hedge_analysis.py
 
 지급 예시 설정
 fx-chronos/configs/hedge_example.json

@@ -1,0 +1,54 @@
+{
+  "config_version": 1,
+  "experiment": "usd_krw_with_us_kr_3y_yield_spread_asof_past_covariate",
+  "model_id": "amazon/chronos-2",
+  "target": "USD/KRW",
+  "past_covariates": [
+    "US 3Y - KR 3Y yield spread point-in-time as-of"
+  ],
+  "future_covariates": [],
+  "input_snapshot": {
+    "path": "data/processed/usd_us_kr_3y_yield_spread_asof_20141203_20211231_20260802T131941Z.csv",
+    "sha256": "168614d33744b7c55d78e2a8b7382ad5a39dd3ebcc80bc8bec12ed177743e2e8"
+  },
+  "univariate_reference_snapshot": {
+    "path": "outputs/forecasts/core/usd_krw_zero_shot_h20_ctx756_validation_2018_2021.csv",
+    "sha256": "9bf73e497c83dd49ff3b4d8ae938b1301d1e5da285251453af3fc91a418631ae"
+  },
+  "validation": {
+    "period": "2018-01-01~2021-12-31",
+    "expected_origins": 48,
+    "expected_rows": 960,
+    "context_length": 756,
+    "prediction_length": 20,
+    "device": "mps",
+    "batch_size": 8,
+    "cross_learning": false
+  },
+  "candidate_entry_criteria": {
+    "lower_mae_than_univariate_chronos": true,
+    "lower_rmse_than_univariate_chronos": true,
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true,
+    "minimum_origin_mae_wins_vs_univariate": 25,
+    "minimum_origin_rmse_wins_vs_univariate": 25,
+    "all_source_observations_and_safe_dates_must_precede_or_equal_input_dates": true
+  },
+  "required_reports": [
+    "overall_metrics",
+    "metrics_by_origin",
+    "metrics_by_year",
+    "metrics_by_lead_segment",
+    "direction_accuracy",
+    "q0.1_q0.9_interval_coverage",
+    "mean_interval_width",
+    "maximum_kr_yield_age_calendar_days",
+    "maximum_us_yield_age_calendar_days"
+  ],
+  "software": {
+    "chronos_forecasting": "2.3.1",
+    "torch": "2.13.0"
+  },
+  "test_reuse_policy": "Do not inspect or use 2022-2025 final-test rows in this experiment.",
+  "post_validation_policy": "Do not retune context, horizon, spread definition, source availability rules, or entry criteria after inspecting this validation result."
+}

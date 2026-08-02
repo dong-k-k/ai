@@ -1,0 +1,19 @@
+{
+  "experiment": "usd_krw_log_return_target",
+  "selection_split": "validation_2018_2021",
+  "final_test_2022_2025_used": false,
+  "intervals_evaluated": false,
+  "origin_mae_wins_vs_level_chronos": 17,
+  "origin_rmse_wins_vs_level_chronos": 17,
+  "criteria_checks": {
+    "lower_mae_than_level_chronos": false,
+    "lower_rmse_than_level_chronos": false,
+    "lower_mae_than_random_walk": false,
+    "lower_rmse_than_random_walk": false,
+    "minimum_origin_mae_wins_vs_level_chronos": false,
+    "minimum_origin_rmse_wins_vs_level_chronos": false,
+    "all_forecast_origins_must_match_reference": true
+  },
+  "passed_candidate_entry_criteria": false,
+  "next_action": "drop_log_return_target_candidate"
+}

@@ -1,0 +1,170 @@
+{
+  "service": "StatisticSearch",
+  "query": {
+    "stat_code": "731Y001",
+    "cycle": "D",
+    "start_date": "20260701",
+    "end_date": "20260710",
+    "item_code": "0000002",
+    "page_size": 1000
+  },
+  "list_total_count": 8,
+  "pages": [
+    {
+      "start_index": 1,
+      "end_index": 1000,
+      "row_count": 8
+    }
+  ],
+  "rows": [
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260701",
+      "DATA_VALUE": "952.25"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260702",
+      "DATA_VALUE": "956.32"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260703",
+      "DATA_VALUE": "963.69"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260706",
+      "DATA_VALUE": "953.61"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260707",
+      "DATA_VALUE": "945.41"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260708",
+      "DATA_VALUE": "941.04"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260709",
+      "DATA_VALUE": "928.85"
+    },
+    {
+      "STAT_CODE": "731Y001",
+      "STAT_NAME": "3.1.1.1. 주요국 통화의 대원화환율",
+      "ITEM_CODE1": "0000002",
+      "ITEM_NAME1": "원/일본엔(100엔)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "원",
+      "WGT": null,
+      "TIME": "20260710",
+      "DATA_VALUE": "926.55"
+    }
+  ],
+  "quality_summary": {
+    "requested_period": "20260701~20260710",
+    "list_total_count": 8,
+    "collected_row_count": 8,
+    "first_date": "2026-07-01",
+    "last_date": "2026-07-10",
+    "duplicate_date_count": 0,
+    "blank_data_value_count": 0,
+    "numeric_conversion_failure_count": 0,
+    "non_target_item_count": 0,
+    "missing_calendar_dates": [
+      "2026-07-04",
+      "2026-07-05"
+    ],
+    "value_definition": {
+      "raw": "KRW per 100 JPY",
+      "normalized": "KRW per JPY",
+      "value_column": "normalized_rate"
+    }
+  },
+  "collected_at": "20260802T154924"
+}

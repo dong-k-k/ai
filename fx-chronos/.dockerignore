@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+.env
+__pycache__
+*.pyc
+*.pyo
+archive
+docs
+tests
+outputs
+data/raw
+notebooks
+.DS_Store

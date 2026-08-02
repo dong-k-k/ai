@@ -1,0 +1,21 @@
+{
+  "experiment": "usd_krw_with_us_kr_3y_yield_spread_asof_past_covariate",
+  "selection_split": "validation_2018_2021",
+  "final_test_2022_2025_used": false,
+  "future_covariates_provided": false,
+  "origin_mae_wins_vs_univariate": 18,
+  "origin_rmse_wins_vs_univariate": 19,
+  "maximum_kr_yield_age_calendar_days": 11,
+  "maximum_us_yield_age_calendar_days": 103,
+  "criteria_checks": {
+    "lower_mae_than_univariate_chronos": false,
+    "lower_rmse_than_univariate_chronos": false,
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true,
+    "minimum_origin_mae_wins_vs_univariate": false,
+    "minimum_origin_rmse_wins_vs_univariate": false,
+    "all_source_observations_and_safe_dates_must_precede_or_equal_input_dates": true
+  },
+  "passed_candidate_entry_criteria": false,
+  "next_action": "drop_yield_spread_covariate_and_do_not_run_lora"
+}

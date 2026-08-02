@@ -1,0 +1,171 @@
+{
+  "service": "StatisticSearch",
+  "query": {
+    "stat_code": "817Y002",
+    "cycle": "D",
+    "start_date": "20240701",
+    "end_date": "20240710",
+    "item_code": "010200000",
+    "page_size": 1000
+  },
+  "list_total_count": 8,
+  "pages": [
+    {
+      "start_index": 1,
+      "end_index": 1000,
+      "row_count": 8
+    }
+  ],
+  "rows": [
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240701",
+      "DATA_VALUE": "3.21"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240702",
+      "DATA_VALUE": "3.169"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240703",
+      "DATA_VALUE": "3.16"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240704",
+      "DATA_VALUE": "3.128"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240705",
+      "DATA_VALUE": "3.115"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240708",
+      "DATA_VALUE": "3.119"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240709",
+      "DATA_VALUE": "3.114"
+    },
+    {
+      "STAT_CODE": "817Y002",
+      "STAT_NAME": "1.3.2.1. 시장금리(일별)",
+      "ITEM_CODE1": "010200000",
+      "ITEM_NAME1": "국고채(3년)",
+      "ITEM_CODE2": null,
+      "ITEM_NAME2": null,
+      "ITEM_CODE3": null,
+      "ITEM_NAME3": null,
+      "ITEM_CODE4": null,
+      "ITEM_NAME4": null,
+      "UNIT_NAME": "연%",
+      "WGT": null,
+      "TIME": "20240710",
+      "DATA_VALUE": "3.12"
+    }
+  ],
+  "quality_summary": {
+    "requested_period": "20240701~20240710",
+    "list_total_count": 8,
+    "collected_row_count": 8,
+    "first_date": "2024-07-01",
+    "last_date": "2024-07-10",
+    "duplicate_date_count": 0,
+    "blank_data_value_count": 0,
+    "numeric_conversion_failure_count": 0,
+    "non_target_item_count": 0,
+    "invalid_unit_name_count": 0,
+    "missing_calendar_dates": [
+      "2024-07-06",
+      "2024-07-07"
+    ],
+    "value_definition": {
+      "raw": "연%",
+      "normalized": "연%",
+      "value_column": "normalized_rate"
+    }
+  },
+  "collected_at": "20260802T205444"
+}

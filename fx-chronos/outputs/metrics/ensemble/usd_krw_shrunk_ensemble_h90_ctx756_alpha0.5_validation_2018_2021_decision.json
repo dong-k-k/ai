@@ -1,0 +1,14 @@
+{
+  "evaluation": "h90_locked_alpha0.5_validation_2018_2021",
+  "alpha": 0.5,
+  "alpha_was_reselected_for_h90": false,
+  "final_test_2022_2025_used": false,
+  "origin_mae_wins_vs_random_walk": 25,
+  "origin_rmse_wins_vs_random_walk": 27,
+  "criteria_checks": {
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true
+  },
+  "passed_h90_service_candidate_criteria": true,
+  "next_action": "include_h90_service_candidate"
+}

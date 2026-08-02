@@ -1,0 +1,2 @@
+split,origins,rows,log_return_mae,level_chronos_mae,random_walk_mae,log_return_rmse,level_chronos_rmse,random_walk_rmse,log_return_direction_accuracy,level_chronos_direction_accuracy,random_walk_direction_accuracy
+validation_2018_2021,48,960,12.32934023987065,11.968236440022787,12.259791666666668,16.05977578431732,15.724911575522476,15.967171399468336,0.5,0.6364583333333333,0.0125

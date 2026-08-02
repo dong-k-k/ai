@@ -112,16 +112,16 @@ MAE 또는 제곱오차 개선 기여가 가장 큰 기준일을 각각 1개, 3�
 fx-chronos/configs/ensemble.json
 
 코드
-fx-chronos/src/export_selected_zero_shot_validation.py
-fx-chronos/src/evaluate_shrunk_ensemble.py
-fx-chronos/src/analyze_shrunk_ensemble.py
+fx-chronos/src/evaluation/export_selected_zero_shot_validation.py
+fx-chronos/src/evaluation/evaluate_shrunk_ensemble.py
+fx-chronos/src/evaluation/analyze_shrunk_ensemble.py
 
 선택 기록
-fx-chronos/outputs/metrics/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_selection.json
+fx-chronos/outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_selection.json
 
 요약 지표
-fx-chronos/outputs/metrics/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_summary.csv
+fx-chronos/outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_summary.csv
 
 안정성 지표
-fx-chronos/outputs/metrics/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_stability_summary.json
+fx-chronos/outputs/metrics/ensemble/usd_krw_shrunk_ensemble_h20_ctx756_validation_2018_2021_stability_summary.json
 ```

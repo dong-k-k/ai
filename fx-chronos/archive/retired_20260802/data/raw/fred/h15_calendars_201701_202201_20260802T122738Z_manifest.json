@@ -1,0 +1,616 @@
+{
+  "start_month": "2017-01",
+  "end_month": "2022-01",
+  "requested_month_count": 61,
+  "archived_month_count": 60,
+  "unavailable_months": {
+    "2019-09": "official Federal Reserve monthly calendar page returns 404"
+  },
+  "release_date_count": 1247,
+  "first_release_date": "2017-01-03",
+  "last_release_date": "2022-01-31",
+  "collected_at_utc": "2026-08-02T12:27:38.827153+00:00",
+  "release_time_policy": "H.15 official calendar, 16:15 America/New_York",
+  "files": [
+    {
+      "month": "2017-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-january.htm",
+      "archive_name": "2017-01.html",
+      "byte_count": 92244,
+      "sha256": "4a023acc40263fe17f505ce0e8bec062902dfddbc216333cc713c613b3e07951",
+      "release_date_count": 19,
+      "first_release_date": "2017-01-03",
+      "last_release_date": "2017-01-31"
+    },
+    {
+      "month": "2017-02",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-february.htm",
+      "archive_name": "2017-02.html",
+      "byte_count": 92391,
+      "sha256": "3bc49a318eeb2716b231ed687af37314cf25c589c2b881022faabe1faaa1e26d",
+      "release_date_count": 19,
+      "first_release_date": "2017-02-01",
+      "last_release_date": "2017-02-28"
+    },
+    {
+      "month": "2017-03",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-march.htm",
+      "archive_name": "2017-03.html",
+      "byte_count": 97386,
+      "sha256": "eafa4d2b92361fdfdbb0e77c8616fbcd41fc8edfaf98326fca9dad185a80d92e",
+      "release_date_count": 23,
+      "first_release_date": "2017-03-01",
+      "last_release_date": "2017-03-31"
+    },
+    {
+      "month": "2017-04",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-april.htm",
+      "archive_name": "2017-04.html",
+      "byte_count": 97522,
+      "sha256": "40c6448e219c4884dbb82f7972c20a6d8d1df29b8a5e547861c4a7d7f87dcea0",
+      "release_date_count": 20,
+      "first_release_date": "2017-04-03",
+      "last_release_date": "2017-04-28"
+    },
+    {
+      "month": "2017-05",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-may.htm",
+      "archive_name": "2017-05.html",
+      "byte_count": 99663,
+      "sha256": "308f6dcb7d2cf8f53fcffd32e2ce6303f172301be388cec8604aba050131d6a0",
+      "release_date_count": 22,
+      "first_release_date": "2017-05-01",
+      "last_release_date": "2017-05-31"
+    },
+    {
+      "month": "2017-06",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-june.htm",
+      "archive_name": "2017-06.html",
+      "byte_count": 94774,
+      "sha256": "e104d1fa327b4ff5169e435484bf7604346b4619c7a64eea80d76d194a100d38",
+      "release_date_count": 22,
+      "first_release_date": "2017-06-01",
+      "last_release_date": "2017-06-30"
+    },
+    {
+      "month": "2017-07",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-july.htm",
+      "archive_name": "2017-07.html",
+      "byte_count": 101949,
+      "sha256": "47c43fddf8a959c495716c0ffc092d96599afbb5a3b531bbce6dee21034666dd",
+      "release_date_count": 20,
+      "first_release_date": "2017-07-03",
+      "last_release_date": "2017-07-31"
+    },
+    {
+      "month": "2017-08",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-august.htm",
+      "archive_name": "2017-08.html",
+      "byte_count": 92970,
+      "sha256": "997a2f9e84da80a27e04dad96ce0e1c765c12ca139230aac399fb63190933123",
+      "release_date_count": 23,
+      "first_release_date": "2017-08-01",
+      "last_release_date": "2017-08-31"
+    },
+    {
+      "month": "2017-09",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-september.htm",
+      "archive_name": "2017-09.html",
+      "byte_count": 99525,
+      "sha256": "5ce0e120ea07c06ce6e7393990131123f70bb9012bb3979ce0d2d914bf7ae0b4",
+      "release_date_count": 20,
+      "first_release_date": "2017-09-01",
+      "last_release_date": "2017-09-29"
+    },
+    {
+      "month": "2017-10",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-october.htm",
+      "archive_name": "2017-10.html",
+      "byte_count": 99868,
+      "sha256": "6a3f669c907a583dd7b671522a187f37d8a02c7e6fe216479b8e8c76b78a780b",
+      "release_date_count": 21,
+      "first_release_date": "2017-10-02",
+      "last_release_date": "2017-10-31"
+    },
+    {
+      "month": "2017-11",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-november.htm",
+      "archive_name": "2017-11.html",
+      "byte_count": 106370,
+      "sha256": "fa6b0cfce17b0878bf87d21865017c7f9298b120c555558f785cebd78fcff7dd",
+      "release_date_count": 20,
+      "first_release_date": "2017-11-01",
+      "last_release_date": "2017-11-30"
+    },
+    {
+      "month": "2017-12",
+      "source_url": "https://www.federalreserve.gov/newsevents/2017-december.htm",
+      "archive_name": "2017-12.html",
+      "byte_count": 94476,
+      "sha256": "9227eaf13e38cd454184c88c943f7b7e04baab9cefe30708539d0f1fe6d89749",
+      "release_date_count": 20,
+      "first_release_date": "2017-12-01",
+      "last_release_date": "2017-12-29"
+    },
+    {
+      "month": "2018-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-january.htm",
+      "archive_name": "2018-01.html",
+      "byte_count": 95624,
+      "sha256": "42495e7bfe8a69529a180a4d38658ed0ed0c8eb9307226114011cee9d0a4fbc4",
+      "release_date_count": 21,
+      "first_release_date": "2018-01-02",
+      "last_release_date": "2018-01-31"
+    },
+    {
+      "month": "2018-02",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-february.htm",
+      "archive_name": "2018-02.html",
+      "byte_count": 97276,
+      "sha256": "30fcf138e4cb638b1498bb31b6d6e1ad690ceed763e0695daed534b86985f76c",
+      "release_date_count": 19,
+      "first_release_date": "2018-02-01",
+      "last_release_date": "2018-02-28"
+    },
+    {
+      "month": "2018-03",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-march.htm",
+      "archive_name": "2018-03.html",
+      "byte_count": 100572,
+      "sha256": "7eb6e5bd09fb9ee07f1574890d52eb30a896dd9a7ec0cb1a0ccb386a313a3fe4",
+      "release_date_count": 22,
+      "first_release_date": "2018-03-01",
+      "last_release_date": "2018-03-30"
+    },
+    {
+      "month": "2018-04",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-april.htm",
+      "archive_name": "2018-04.html",
+      "byte_count": 97395,
+      "sha256": "3ce2e3a480bfd93a3f1a20751ce1eb4cee0c54beeffc530f84af9b03acfb62f1",
+      "release_date_count": 21,
+      "first_release_date": "2018-04-02",
+      "last_release_date": "2018-04-30"
+    },
+    {
+      "month": "2018-05",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-may.htm",
+      "archive_name": "2018-05.html",
+      "byte_count": 101193,
+      "sha256": "f38a6951771a4b9f4e103fc2e0b10244b3106cfc9a591be514da162c94bf4dfe",
+      "release_date_count": 22,
+      "first_release_date": "2018-05-01",
+      "last_release_date": "2018-05-31"
+    },
+    {
+      "month": "2018-06",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-june.htm",
+      "archive_name": "2018-06.html",
+      "byte_count": 93538,
+      "sha256": "3fd02af877d3d01e95d10380eb32e30c1bcac61bad5c3ecd0041e2a3a9c93922",
+      "release_date_count": 21,
+      "first_release_date": "2018-06-01",
+      "last_release_date": "2018-06-29"
+    },
+    {
+      "month": "2018-07",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-july.htm",
+      "archive_name": "2018-07.html",
+      "byte_count": 97524,
+      "sha256": "fd22bebc625d2b81b13d181091af76aa844c3a94ab0b1a8c4ff3bd58fa145ddf",
+      "release_date_count": 21,
+      "first_release_date": "2018-07-02",
+      "last_release_date": "2018-07-31"
+    },
+    {
+      "month": "2018-08",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-august.htm",
+      "archive_name": "2018-08.html",
+      "byte_count": 92856,
+      "sha256": "7494aa47e0361a59b41b7a1a45e34b9885f4b9b311fc269079c2fb8b6025126e",
+      "release_date_count": 23,
+      "first_release_date": "2018-08-01",
+      "last_release_date": "2018-08-31"
+    },
+    {
+      "month": "2018-09",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-september.htm",
+      "archive_name": "2018-09.html",
+      "byte_count": 95646,
+      "sha256": "cf159cb990f55672b4379147ba2f2dd4e188027a5ae5d9a45a336ae76414c7cf",
+      "release_date_count": 19,
+      "first_release_date": "2018-09-04",
+      "last_release_date": "2018-09-28"
+    },
+    {
+      "month": "2018-10",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-october.htm",
+      "archive_name": "2018-10.html",
+      "byte_count": 105273,
+      "sha256": "2600388a62344d4fdb7d9edbb69def3da4b5710f34eb8d2dd45e76c7c5b51db5",
+      "release_date_count": 22,
+      "first_release_date": "2018-10-01",
+      "last_release_date": "2018-10-31"
+    },
+    {
+      "month": "2018-11",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-november.htm",
+      "archive_name": "2018-11.html",
+      "byte_count": 103430,
+      "sha256": "9f88c09bd60e6cb95977b046d3609d0700084bba2f08b7409896d714f691cf7e",
+      "release_date_count": 20,
+      "first_release_date": "2018-11-01",
+      "last_release_date": "2018-11-30"
+    },
+    {
+      "month": "2018-12",
+      "source_url": "https://www.federalreserve.gov/newsevents/2018-december.htm",
+      "archive_name": "2018-12.html",
+      "byte_count": 101662,
+      "sha256": "d6c65a720f365275793aefe6cc7b52f502d84882739bcdd10c2bb78ba37833c5",
+      "release_date_count": 19,
+      "first_release_date": "2018-12-03",
+      "last_release_date": "2018-12-31"
+    },
+    {
+      "month": "2019-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-january.htm",
+      "archive_name": "2019-01.html",
+      "byte_count": 101004,
+      "sha256": "f722c7dcf425d845c4866e9808881261236ccfef68e9bfb812da6d27c7579f8a",
+      "release_date_count": 21,
+      "first_release_date": "2019-01-02",
+      "last_release_date": "2019-01-31"
+    },
+    {
+      "month": "2019-02",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-february.htm",
+      "archive_name": "2019-02.html",
+      "byte_count": 111954,
+      "sha256": "2bd1386db59d097c3dd8953860d35bc7253e073300f0ca8333c658e9920af631",
+      "release_date_count": 19,
+      "first_release_date": "2019-02-01",
+      "last_release_date": "2019-02-28"
+    },
+    {
+      "month": "2019-03",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-march.htm",
+      "archive_name": "2019-03.html",
+      "byte_count": 102635,
+      "sha256": "edce1c4d294d4f279236c9760a0a9f51f716da2f6b77856ba063c098dea77727",
+      "release_date_count": 21,
+      "first_release_date": "2019-03-01",
+      "last_release_date": "2019-03-29"
+    },
+    {
+      "month": "2019-04",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-april.htm",
+      "archive_name": "2019-04.html",
+      "byte_count": 96182,
+      "sha256": "142e8a82cd19bf32ebb6164a7f442566a52389aafe8a26e0520c784d675afb65",
+      "release_date_count": 22,
+      "first_release_date": "2019-04-01",
+      "last_release_date": "2019-04-30"
+    },
+    {
+      "month": "2019-05",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-may.htm",
+      "archive_name": "2019-05.html",
+      "byte_count": 111383,
+      "sha256": "e2e82833aa3cc4f7defdb8e61425f4ed228bc7fa839fc65f660daea875efb76e",
+      "release_date_count": 22,
+      "first_release_date": "2019-05-01",
+      "last_release_date": "2019-05-31"
+    },
+    {
+      "month": "2019-06",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-june.htm",
+      "archive_name": "2019-06.html",
+      "byte_count": 101109,
+      "sha256": "c4ab6048d9ebdf1e5de49018877be80381204bac08f4145dca68bc49a8ded2b7",
+      "release_date_count": 20,
+      "first_release_date": "2019-06-03",
+      "last_release_date": "2019-06-28"
+    },
+    {
+      "month": "2019-07",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-07.htm",
+      "archive_name": "2019-07.html",
+      "byte_count": 104182,
+      "sha256": "277383e02422ed2a338ff6d3c5dea712ce4c305b1146b9db914093ba8cd4fa43",
+      "release_date_count": 22,
+      "first_release_date": "2019-07-01",
+      "last_release_date": "2019-07-31"
+    },
+    {
+      "month": "2019-08",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-September.htm",
+      "archive_name": "2019-08.html",
+      "byte_count": 93463,
+      "sha256": "2d62e810b6602e60464bff000671063e26e280e6e8cead46a01953b155c14f64",
+      "release_date_count": 22,
+      "first_release_date": "2019-08-01",
+      "last_release_date": "2019-08-30"
+    },
+    {
+      "month": "2019-10",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-october.htm",
+      "archive_name": "2019-10.html",
+      "byte_count": 115411,
+      "sha256": "d9561477fc237975c9ae6a57a431f3a2f0d1cbdf88f67a4811dcce1d8ad810c3",
+      "release_date_count": 22,
+      "first_release_date": "2019-10-01",
+      "last_release_date": "2019-10-31"
+    },
+    {
+      "month": "2019-11",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-november.htm",
+      "archive_name": "2019-11.html",
+      "byte_count": 108494,
+      "sha256": "7cc7529fa8a11392383edb008e844ce6f7bb480d95b05f0d6ff949f8b613ffaf",
+      "release_date_count": 19,
+      "first_release_date": "2019-11-01",
+      "last_release_date": "2019-11-29"
+    },
+    {
+      "month": "2019-12",
+      "source_url": "https://www.federalreserve.gov/newsevents/2019-december.htm",
+      "archive_name": "2019-12.html",
+      "byte_count": 98203,
+      "sha256": "fd92e77e4b6bdbfc6ae5f7607801decb81c8721dbaf1b8280b55a365633ce5de",
+      "release_date_count": 20,
+      "first_release_date": "2019-12-02",
+      "last_release_date": "2019-12-31"
+    },
+    {
+      "month": "2020-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-january.htm",
+      "archive_name": "2020-01.html",
+      "byte_count": 101514,
+      "sha256": "1703786b1b73111e7436e46514fd4e9ed64d900bfa40b1a5cdb9e7e2623f8c5f",
+      "release_date_count": 21,
+      "first_release_date": "2020-01-02",
+      "last_release_date": "2020-01-31"
+    },
+    {
+      "month": "2020-02",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-february.htm",
+      "archive_name": "2020-02.html",
+      "byte_count": 102820,
+      "sha256": "0de9c89cfeed41a2ac4c746c6b1d40de103d249bd3cf1f1853010d88c042f28b",
+      "release_date_count": 19,
+      "first_release_date": "2020-02-03",
+      "last_release_date": "2020-02-28"
+    },
+    {
+      "month": "2020-03",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-march.htm",
+      "archive_name": "2020-03.html",
+      "byte_count": 90115,
+      "sha256": "da17b2e89c5cda798425f291ba643eca7b8ca2e4c3b03ec2cb3ba7a4377418db",
+      "release_date_count": 22,
+      "first_release_date": "2020-03-02",
+      "last_release_date": "2020-03-31"
+    },
+    {
+      "month": "2020-04",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-april.htm",
+      "archive_name": "2020-04.html",
+      "byte_count": 94803,
+      "sha256": "b71c4d37a3bd7b999a8cf72049565c2156206fc1339585a82b3a5601b3fc9558",
+      "release_date_count": 22,
+      "first_release_date": "2020-04-01",
+      "last_release_date": "2020-04-30"
+    },
+    {
+      "month": "2020-05",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-may.htm",
+      "archive_name": "2020-05.html",
+      "byte_count": 103307,
+      "sha256": "f476f68aac92d0ef3dc5d3d6730994a9bc82504f7aebea9c9e293281ae2afc10",
+      "release_date_count": 20,
+      "first_release_date": "2020-05-01",
+      "last_release_date": "2020-05-29"
+    },
+    {
+      "month": "2020-06",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-june.htm",
+      "archive_name": "2020-06.html",
+      "byte_count": 102009,
+      "sha256": "05d4e7be7a54f9f75744405856177eee6448faa92f2fa219bf5a35a049338484",
+      "release_date_count": 22,
+      "first_release_date": "2020-06-01",
+      "last_release_date": "2020-06-30"
+    },
+    {
+      "month": "2020-07",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-july.htm",
+      "archive_name": "2020-07.html",
+      "byte_count": 96066,
+      "sha256": "e62968d6e9e98484cc080815f1142d830bb74bf509c92c473d3c88e8bff5149b",
+      "release_date_count": 22,
+      "first_release_date": "2020-07-01",
+      "last_release_date": "2020-07-31"
+    },
+    {
+      "month": "2020-08",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-august.htm",
+      "archive_name": "2020-08.html",
+      "byte_count": 95226,
+      "sha256": "bc4b0e6652d552a184bdb7997fa9b73a87c0451bf1c84d3f69ba085d56a81b8c",
+      "release_date_count": 21,
+      "first_release_date": "2020-08-03",
+      "last_release_date": "2020-08-31"
+    },
+    {
+      "month": "2020-09",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-september.htm",
+      "archive_name": "2020-09.html",
+      "byte_count": 110988,
+      "sha256": "bf74883f0c2e7b35a143e44926b901d26a610dc72e504498e254a755a6b95a25",
+      "release_date_count": 21,
+      "first_release_date": "2020-09-01",
+      "last_release_date": "2020-09-30"
+    },
+    {
+      "month": "2020-10",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-october.htm",
+      "archive_name": "2020-10.html",
+      "byte_count": 104235,
+      "sha256": "e0277f7a8ec0d42bb84e2f3442e1496063aad31aaeb4b22e67de819cafdb7163",
+      "release_date_count": 21,
+      "first_release_date": "2020-10-01",
+      "last_release_date": "2020-10-30"
+    },
+    {
+      "month": "2020-11",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-november.htm",
+      "archive_name": "2020-11.html",
+      "byte_count": 106823,
+      "sha256": "2eae4ada438ee12d2c74e0cf4a6d2a2dbcc1804d892bd3999c18d7c473d21a15",
+      "release_date_count": 19,
+      "first_release_date": "2020-11-02",
+      "last_release_date": "2020-11-30"
+    },
+    {
+      "month": "2020-12",
+      "source_url": "https://www.federalreserve.gov/newsevents/2020-december.htm",
+      "archive_name": "2020-12.html",
+      "byte_count": 102710,
+      "sha256": "470d81af2a27616cfcb21be97fb76a4fa472eba389a280e3cfe02f1872b18a2c",
+      "release_date_count": 21,
+      "first_release_date": "2020-12-01",
+      "last_release_date": "2020-12-31"
+    },
+    {
+      "month": "2021-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-january.htm",
+      "archive_name": "2021-01.html",
+      "byte_count": 102716,
+      "sha256": "a11045aa3973cc045cdec3122fc55cc8cacc92484454eda356d21181a80a81b2",
+      "release_date_count": 18,
+      "first_release_date": "2021-01-04",
+      "last_release_date": "2021-01-29"
+    },
+    {
+      "month": "2021-02",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-february.htm",
+      "archive_name": "2021-02.html",
+      "byte_count": 109139,
+      "sha256": "05155fb24652ff838ea9571345c1bfc36e6123f50feef5514bbcc5fcb5947519",
+      "release_date_count": 19,
+      "first_release_date": "2021-02-01",
+      "last_release_date": "2021-02-26"
+    },
+    {
+      "month": "2021-03",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-march.htm",
+      "archive_name": "2021-03.html",
+      "byte_count": 109662,
+      "sha256": "13f5130c9c6c5947dda0dad2310d6709070a160d732a79ab2d9bf14107579dd3",
+      "release_date_count": 23,
+      "first_release_date": "2021-03-01",
+      "last_release_date": "2021-03-31"
+    },
+    {
+      "month": "2021-04",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-april.htm",
+      "archive_name": "2021-04.html",
+      "byte_count": 99001,
+      "sha256": "0e27030f6e298d31827d2dd36eacd129d0cab1953457814e5fae09241b89a097",
+      "release_date_count": 22,
+      "first_release_date": "2021-04-01",
+      "last_release_date": "2021-04-30"
+    },
+    {
+      "month": "2021-05",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-may.htm",
+      "archive_name": "2021-05.html",
+      "byte_count": 103841,
+      "sha256": "84fff782ba539e174a6e32aae4c09beda7bed0fcc43c3b264f5dbb8ff65345a1",
+      "release_date_count": 20,
+      "first_release_date": "2021-05-03",
+      "last_release_date": "2021-05-28"
+    },
+    {
+      "month": "2021-06",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-june.htm",
+      "archive_name": "2021-06.html",
+      "byte_count": 100911,
+      "sha256": "68ee30cc691a74e2e2b26bafe8aab2e0257bafac2aa1dcf816246bb79f6317f2",
+      "release_date_count": 21,
+      "first_release_date": "2021-06-01",
+      "last_release_date": "2021-06-30"
+    },
+    {
+      "month": "2021-07",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-july.htm",
+      "archive_name": "2021-07.html",
+      "byte_count": 99025,
+      "sha256": "1e14e4012b9d6857d3379905b5393f28634f8e8174a3514cd089f59dd943a4ad",
+      "release_date_count": 21,
+      "first_release_date": "2021-07-01",
+      "last_release_date": "2021-07-30"
+    },
+    {
+      "month": "2021-08",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-august.htm",
+      "archive_name": "2021-08.html",
+      "byte_count": 96085,
+      "sha256": "a8c2e55c14318a303d9ffb000675ddfce5bbab3f3c3cafdce53b5dfc598251c7",
+      "release_date_count": 21,
+      "first_release_date": "2021-08-02",
+      "last_release_date": "2021-08-31"
+    },
+    {
+      "month": "2021-09",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-september.htm",
+      "archive_name": "2021-09.html",
+      "byte_count": 103486,
+      "sha256": "88c42e4561bd306d4aac4a4d9797fafa4b2703f3f1eb4681a80c9f56eb3c3afd",
+      "release_date_count": 21,
+      "first_release_date": "2021-09-01",
+      "last_release_date": "2021-09-30"
+    },
+    {
+      "month": "2021-10",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-october.htm",
+      "archive_name": "2021-10.html",
+      "byte_count": 106175,
+      "sha256": "84682c4df6665da8fd8a20e569153ad1f07561a13f5acacacb1add6251f6a50d",
+      "release_date_count": 20,
+      "first_release_date": "2021-10-01",
+      "last_release_date": "2021-10-29"
+    },
+    {
+      "month": "2021-11",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-november.htm",
+      "archive_name": "2021-11.html",
+      "byte_count": 107537,
+      "sha256": "8fb935ee334e0fe260c727383a8801542faeedc1ae9320297ca381af22eaf12e",
+      "release_date_count": 20,
+      "first_release_date": "2021-11-01",
+      "last_release_date": "2021-11-30"
+    },
+    {
+      "month": "2021-12",
+      "source_url": "https://www.federalreserve.gov/newsevents/2021-december.htm",
+      "archive_name": "2021-12.html",
+      "byte_count": 97958,
+      "sha256": "ba10a49ee19c04619d6f17135c75acc4925bdafd700a63f90bd799763cef9e5d",
+      "release_date_count": 21,
+      "first_release_date": "2021-12-01",
+      "last_release_date": "2021-12-30"
+    },
+    {
+      "month": "2022-01",
+      "source_url": "https://www.federalreserve.gov/newsevents/2022-january.htm",
+      "archive_name": "2022-01.html",
+      "byte_count": 98612,
+      "sha256": "d70d470762883b7c0a262d1c8e75a60695dbd8c2cf508e16d79974a7d74f2355",
+      "release_date_count": 20,
+      "first_release_date": "2022-01-03",
+      "last_release_date": "2022-01-31"
+    }
+  ]
+}

@@ -1,0 +1,858 @@
+{
+  "start_week": "2014-12-15",
+  "end_week": "2016-09-26",
+  "week_count": 94,
+  "release_count": 94,
+  "first_release_date": "2014-12-15",
+  "last_release_date": "2016-09-26",
+  "collected_at_utc": "2026-08-02T12:27:33.753882+00:00",
+  "availability_time_policy": "exact historical posting time not encoded; use conservative end-of-release-day",
+  "files": [
+    {
+      "week_start": "2014-12-15",
+      "release_date": "2014-12-15",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20141215/",
+      "archive_name": "2014-12-15.html",
+      "byte_count": 72343,
+      "sha256": "46164c491cc6a328db5f6be99d802bd3a6ddd368035b96b831beaec356fe8fed",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2014-12-22",
+      "release_date": "2014-12-22",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20141222/",
+      "archive_name": "2014-12-22.html",
+      "byte_count": 72663,
+      "sha256": "d5264137c0789d56524edb9f1ff0a4c5871fbdcffa66b691c315d6c61d69d6fe",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2014-12-29",
+      "release_date": "2014-12-29",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20141229/",
+      "archive_name": "2014-12-29.html",
+      "byte_count": 71240,
+      "sha256": "1f6da6ea224dd3646e6f31722347151ee8e530a7e90242ad44c1f0b9effc4a61",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-01-05",
+      "release_date": "2015-01-05",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150105/",
+      "archive_name": "2015-01-05.html",
+      "byte_count": 72313,
+      "sha256": "661cefa2336b16b349ef863db2f0d3e7d912cc15db25d1c8455dda82eeffdf94",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-01-12",
+      "release_date": "2015-01-12",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150112/",
+      "archive_name": "2015-01-12.html",
+      "byte_count": 71590,
+      "sha256": "bffa4d3b9914e11c09b7582cb1d553a9d3f9279e8f58aa099f6a1ad0ccab7b99",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-01-19",
+      "release_date": "2015-01-20",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150120/",
+      "archive_name": "2015-01-20.html",
+      "byte_count": 71707,
+      "sha256": "5a3d60616cdf9d27d79325edf99184de5905443d3a9c4d36b5b7b25f1d992c00",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-01-26",
+      "release_date": "2015-01-26",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150126/",
+      "archive_name": "2015-01-26.html",
+      "byte_count": 72593,
+      "sha256": "433877b3999896f28c6789ccea9056875f87f9abe76a2aa517bb2041ebf65ecb",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-02-02",
+      "release_date": "2015-02-02",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150202/",
+      "archive_name": "2015-02-02.html",
+      "byte_count": 72509,
+      "sha256": "d67fb0d1a0806da43b0239b2e01c905e7149c0b76219e07b9e86a823946dd7fb",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-02-09",
+      "release_date": "2015-02-09",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150209/",
+      "archive_name": "2015-02-09.html",
+      "byte_count": 73634,
+      "sha256": "3099ef8c74038effe2ba5bcbfd5d04c9aaa5b6a033f7ffb21c7c7b089c80398f",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-02-16",
+      "release_date": "2015-02-18",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150218/",
+      "archive_name": "2015-02-18.html",
+      "byte_count": 72419,
+      "sha256": "1647d4ac5044a459d8fe9764212c40fb6a7992496d886ce615b960a5a1ee18d8",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-02-23",
+      "release_date": "2015-02-23",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150223/",
+      "archive_name": "2015-02-23.html",
+      "byte_count": 72597,
+      "sha256": "9080f01df6f9d9d52027f993aac0ae5766b162f8759509aa7a94285fbc79435d",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-03-02",
+      "release_date": "2015-03-02",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150302/",
+      "archive_name": "2015-03-02.html",
+      "byte_count": 72488,
+      "sha256": "e1d47488a30b0cda466c417a5e37db4cee4bba1eff1d2c25ce3d39f7f69189ee",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-03-09",
+      "release_date": "2015-03-09",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150309/",
+      "archive_name": "2015-03-09.html",
+      "byte_count": 72381,
+      "sha256": "3afd5753a9945adfbc3b7dadee564faad46cb29d4bce62a14321e41f95441663",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-03-16",
+      "release_date": "2015-03-16",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150316/",
+      "archive_name": "2015-03-16.html",
+      "byte_count": 72647,
+      "sha256": "e60517b40659ee90e3f9b48c894f608c74982549dc63053b52185fc7b65770f5",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-03-23",
+      "release_date": "2015-03-23",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150323/",
+      "archive_name": "2015-03-23.html",
+      "byte_count": 72401,
+      "sha256": "e50990315d22eef8e6a24887f7e6cdc1872090bdcb28f20bc2748b5ec61ac3e7",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-03-30",
+      "release_date": "2015-03-30",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150330/",
+      "archive_name": "2015-03-30.html",
+      "byte_count": 72666,
+      "sha256": "b6a27928329507cd0266650d952aaf45c757ed40abdd2499ac981e92f14b5c88",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-04-06",
+      "release_date": "2015-04-06",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150406/",
+      "archive_name": "2015-04-06.html",
+      "byte_count": 72643,
+      "sha256": "f029487e4dfabe63c898fd4279fedadffe62b1ec17a96477be812a251f61d500",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-04-13",
+      "release_date": "2015-04-13",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150413/",
+      "archive_name": "2015-04-13.html",
+      "byte_count": 72405,
+      "sha256": "0241ca71c73a4beb5998377c7159e9a85a0e3722f6dfbc47b091bc3b268da7c9",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-04-20",
+      "release_date": "2015-04-20",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150420/",
+      "archive_name": "2015-04-20.html",
+      "byte_count": 72673,
+      "sha256": "79c2adbc16137b5e65cede024c50cadee737e6a18d502472569b506d15edd256",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-04-27",
+      "release_date": "2015-04-27",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150427/",
+      "archive_name": "2015-04-27.html",
+      "byte_count": 73083,
+      "sha256": "0beff0ad7df52149a8bf92599c03776e0ac2d65c2d59fff71b3678f9375d6a07",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-05-04",
+      "release_date": "2015-05-04",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150504/",
+      "archive_name": "2015-05-04.html",
+      "byte_count": 72391,
+      "sha256": "172e6dcb724e2c69e53924ef41c7d7dd6eb46576b6f98021db9d59a46e962aaf",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-05-11",
+      "release_date": "2015-05-11",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150511/",
+      "archive_name": "2015-05-11.html",
+      "byte_count": 72320,
+      "sha256": "899bef768873d41bf57042f706e17ae2f8654d81fc9fa9fd4e3a71bdfed17e34",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-05-18",
+      "release_date": "2015-05-18",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150518/",
+      "archive_name": "2015-05-18.html",
+      "byte_count": 72334,
+      "sha256": "7956a47913dfc4e5fb7d64c4d43cd6a644b72de0eee8c4619416cce48fcbd861",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-05-25",
+      "release_date": "2015-05-26",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150526/",
+      "archive_name": "2015-05-26.html",
+      "byte_count": 72499,
+      "sha256": "8574ab5635629090cd0d0beedada89a4958a9b191a61d6197f696e132947bdf9",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-06-01",
+      "release_date": "2015-06-01",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150601/",
+      "archive_name": "2015-06-01.html",
+      "byte_count": 72332,
+      "sha256": "5d3eb988daebe720a128ec665b8fcdc54c530eb1e15e01fcdf520948f44d2732",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-06-08",
+      "release_date": "2015-06-08",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150608/",
+      "archive_name": "2015-06-08.html",
+      "byte_count": 72621,
+      "sha256": "d5e47824584ea71a560373abc0f4e6d14d5366a22b91762353938eba4c520509",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-06-15",
+      "release_date": "2015-06-15",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150615/",
+      "archive_name": "2015-06-15.html",
+      "byte_count": 72393,
+      "sha256": "62bf2f6313b02e54e6674c485da4d12ff68356b57dba5a3adf871c59c54c2a29",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-06-22",
+      "release_date": "2015-06-22",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150622/",
+      "archive_name": "2015-06-22.html",
+      "byte_count": 72664,
+      "sha256": "29ed37898c0657c397c7e7039bcc1c24eff03c72d18df38bfd5c698694fcd715",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-06-29",
+      "release_date": "2015-06-29",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150629/",
+      "archive_name": "2015-06-29.html",
+      "byte_count": 72421,
+      "sha256": "1116b0b21399ca675ee74da4dcc93d09276ba3e31d0f330f2406d35abcfec427",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-07-06",
+      "release_date": "2015-07-06",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150706/",
+      "archive_name": "2015-07-06.html",
+      "byte_count": 72229,
+      "sha256": "78b2ab0ee3b3f1cf65f56bb72bd0c40931d3ad5b968eb62d66a3c2af8babb4ee",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-07-13",
+      "release_date": "2015-07-13",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150713/",
+      "archive_name": "2015-07-13.html",
+      "byte_count": 72492,
+      "sha256": "48aac24f447137da58a74de8e627f703d910dfc2c3db693a04919d79f334b8e1",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-07-20",
+      "release_date": "2015-07-20",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150720/",
+      "archive_name": "2015-07-20.html",
+      "byte_count": 72404,
+      "sha256": "5b2384581fa76c8d3b869a4c4afa6606e146eea213f57e3051bd7b3ec584fbd5",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-07-27",
+      "release_date": "2015-07-27",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150727/",
+      "archive_name": "2015-07-27.html",
+      "byte_count": 72404,
+      "sha256": "d06c3ee8f8aa3bb7b9f31a234e684b38e80618740d9a689993898e6a81209fc9",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-08-03",
+      "release_date": "2015-08-03",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150803/",
+      "archive_name": "2015-08-03.html",
+      "byte_count": 72334,
+      "sha256": "f517329068b3b19097a6b36947d4275758c9594776f35cb81ffe6890a1365256",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-08-10",
+      "release_date": "2015-08-11",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150810/",
+      "archive_name": "2015-08-11.html",
+      "byte_count": 73054,
+      "sha256": "7a1d9e5696590d2f4fc9686359aa0311714e583e91be893c406808d728dc1dea",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-08-17",
+      "release_date": "2015-08-17",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150817/",
+      "archive_name": "2015-08-17.html",
+      "byte_count": 72337,
+      "sha256": "111913a6c4f7711bf903b0db9a6dd93df7d59472b71437b858efe81255cc8cab",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-08-24",
+      "release_date": "2015-08-24",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150824/",
+      "archive_name": "2015-08-24.html",
+      "byte_count": 71323,
+      "sha256": "74e5aedeb56ff64a88989093adf52903a3801a5dd069129b4219f4f34f7769e4",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-08-31",
+      "release_date": "2015-08-31",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150831/",
+      "archive_name": "2015-08-31.html",
+      "byte_count": 71323,
+      "sha256": "5e5074fb41622979d49d9f9661bf84f06207dcbd911c76d88cb28ae99f1c7263",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-09-07",
+      "release_date": "2015-09-08",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150908/",
+      "archive_name": "2015-09-08.html",
+      "byte_count": 72406,
+      "sha256": "9e579e33c33f7194da4cb0932e81deef01b905c020af9a5789959342d7c7df22",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-09-14",
+      "release_date": "2015-09-14",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150914/",
+      "archive_name": "2015-09-14.html",
+      "byte_count": 72354,
+      "sha256": "04f020299f494722ffb35d0db99b6b1e7029f1de8710c2377457ba76b5bb414e",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-09-21",
+      "release_date": "2015-09-21",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150921/",
+      "archive_name": "2015-09-21.html",
+      "byte_count": 72438,
+      "sha256": "da80180d9af4943bb4c1d81b3e9f71ac245e0ee025d1816ec4a49ed1db2cec46",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-09-28",
+      "release_date": "2015-09-28",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20150928/",
+      "archive_name": "2015-09-28.html",
+      "byte_count": 72433,
+      "sha256": "5868c56253aac0183eafa0656df4c4841a594b39147ec6eb35382f2932087629",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-10-05",
+      "release_date": "2015-10-05",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151005/",
+      "archive_name": "2015-10-05.html",
+      "byte_count": 72411,
+      "sha256": "60458b08ec0432516cc4248abe5d94a89b1832df06942c97c351b89ff0961f2d",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-10-12",
+      "release_date": "2015-10-13",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151013/",
+      "archive_name": "2015-10-13.html",
+      "byte_count": 72426,
+      "sha256": "a3baa564684b81fd368719f8a7e076ed4bcfdf98a1ea3c04c0013d5b3f47eab6",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-10-19",
+      "release_date": "2015-10-19",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151019/",
+      "archive_name": "2015-10-19.html",
+      "byte_count": 72342,
+      "sha256": "5ccc73464dc3c1379cae21f10581ed8cfb6fe72cceb3709357651aec34e16dd2",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-10-26",
+      "release_date": "2015-10-26",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151026/",
+      "archive_name": "2015-10-26.html",
+      "byte_count": 72647,
+      "sha256": "da8ad8199800105f2c5e5d2457ac7c2883545fb65fa51a04ecd1295f635864d4",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-11-02",
+      "release_date": "2015-11-02",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151102/",
+      "archive_name": "2015-11-02.html",
+      "byte_count": 72659,
+      "sha256": "73d02605b33e772a5540fba9bde2e62ea8c186986bcaf71bbe3c2e8c6759e235",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-11-09",
+      "release_date": "2015-11-09",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151109/",
+      "archive_name": "2015-11-09.html",
+      "byte_count": 72383,
+      "sha256": "fe281ecee003e0a12760f8f0ebe0cf41779fe69a247b65ce17f9f12ecd411d05",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-11-16",
+      "release_date": "2015-11-16",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151116/",
+      "archive_name": "2015-11-16.html",
+      "byte_count": 72352,
+      "sha256": "278b8d92dd90bf726ef513c1dc7567f6ae14ee50e8464b8ce27869d433c01575",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-11-23",
+      "release_date": "2015-11-23",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151123/",
+      "archive_name": "2015-11-23.html",
+      "byte_count": 72429,
+      "sha256": "9c4a9780d6fe186b1c3dadabeed6038dec13c2c23683163ad49b6307c8334d32",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-11-30",
+      "release_date": "2015-11-30",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151130/",
+      "archive_name": "2015-11-30.html",
+      "byte_count": 72345,
+      "sha256": "863206b941f789b4facf9dea2168097079c07f56d94f2be9296ba971181ba133",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-12-07",
+      "release_date": "2015-12-07",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151207/",
+      "archive_name": "2015-12-07.html",
+      "byte_count": 72393,
+      "sha256": "cb940add18dc8ee3cce81d3a2cbc976d698839f5723591800c2183d7f11bd911",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-12-14",
+      "release_date": "2015-12-14",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151214/",
+      "archive_name": "2015-12-14.html",
+      "byte_count": 72407,
+      "sha256": "3186bb5fea54068fe5243f900dbed8a491f548a9da334dadf642229fd01dda2c",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-12-21",
+      "release_date": "2015-12-21",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151221/",
+      "archive_name": "2015-12-21.html",
+      "byte_count": 72411,
+      "sha256": "2d2895328d0cb0c7f855285836703d3edac8d6fccf578c2280e22d7f3997cc1f",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2015-12-28",
+      "release_date": "2015-12-28",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20151228/",
+      "archive_name": "2015-12-28.html",
+      "byte_count": 73604,
+      "sha256": "66b0ec39401676f8d25ba76e1192f629b62fe5ff684e33cb8cc9840640e4fe96",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-01-04",
+      "release_date": "2016-01-04",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160104/",
+      "archive_name": "2016-01-04.html",
+      "byte_count": 72305,
+      "sha256": "c12f215c291686f3ae53f81561b6e688e80dbe335e951560a3a5cb2e9c392b0e",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-01-11",
+      "release_date": "2016-01-11",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160111/",
+      "archive_name": "2016-01-11.html",
+      "byte_count": 72409,
+      "sha256": "e7662b0aa8f6e7bcb2556376cf4849d2b77d713e7e6e77d54fb4900ffec1fd80",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-01-18",
+      "release_date": "2016-01-19",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160119/",
+      "archive_name": "2016-01-19.html",
+      "byte_count": 73434,
+      "sha256": "29bcd8afc1685c51cd37cdf21b43f17243edcabcfbf5a98090d4ee5989d291b7",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-01-25",
+      "release_date": "2016-01-27",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160127/",
+      "archive_name": "2016-01-27.html",
+      "byte_count": 72508,
+      "sha256": "db1e87845440bb62b741f7f8817a29f04371e0951473249fd4372a199333809e",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-02-01",
+      "release_date": "2016-02-01",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160201/",
+      "archive_name": "2016-02-01.html",
+      "byte_count": 72407,
+      "sha256": "98b7193368ccc2540f5b7b5f0b366558949d89da2163cbe6d028bd8246a0aad7",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-02-08",
+      "release_date": "2016-02-08",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160208/",
+      "archive_name": "2016-02-08.html",
+      "byte_count": 71353,
+      "sha256": "e0b91318b1d704f2385239e318ba918844d76c08e032bb85b7d31c0003b4d322",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-02-15",
+      "release_date": "2016-02-16",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160216/",
+      "archive_name": "2016-02-16.html",
+      "byte_count": 72325,
+      "sha256": "613200a315a0cc63a26b3b23ad9faa05b46582a0bb9bdc3a12c1523eed386026",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-02-22",
+      "release_date": "2016-02-22",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160222/",
+      "archive_name": "2016-02-22.html",
+      "byte_count": 72253,
+      "sha256": "068c7586d3708674e47c6b2d7b9a543b05f76f30917f5fd839ab9ce91ef9a553",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-02-29",
+      "release_date": "2016-02-29",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160229/",
+      "archive_name": "2016-02-29.html",
+      "byte_count": 74511,
+      "sha256": "6dec875635bc019ab86606ad3bdc6088740bc5e2aa6109eb654b3e949a80b3f7",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-03-07",
+      "release_date": "2016-03-07",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160307/",
+      "archive_name": "2016-03-07.html",
+      "byte_count": 74213,
+      "sha256": "55a0021f0c8a01177dea12498fe6dd1bfc05b29a6f19544c4508c0aee9ed8270",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-03-14",
+      "release_date": "2016-03-14",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160314/",
+      "archive_name": "2016-03-14.html",
+      "byte_count": 72523,
+      "sha256": "1565e3153775f6bdf50c92283124b9d407d4f49608dd429b1577d06fc6311220",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-03-21",
+      "release_date": "2016-03-21",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160321/",
+      "archive_name": "2016-03-21.html",
+      "byte_count": 72782,
+      "sha256": "534080271355b3680b35af1a1bb69dd26f8151b5f42fb3c02cca7c4c545fdc89",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-03-28",
+      "release_date": "2016-03-28",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160328/",
+      "archive_name": "2016-03-28.html",
+      "byte_count": 72274,
+      "sha256": "456d021d898f059174cc119685dbd4498c332dcdfd52de759bb64e03a4c70836",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-04-04",
+      "release_date": "2016-04-04",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160404/",
+      "archive_name": "2016-04-04.html",
+      "byte_count": 72541,
+      "sha256": "bf8878ff46e92a507529a33e6af3c7fc1c468fa07f2fae81098618c584f0c084",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-04-11",
+      "release_date": "2016-04-11",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160411/",
+      "archive_name": "2016-04-11.html",
+      "byte_count": 72687,
+      "sha256": "dbfc31a045914493ed2c2575d0be1706bd06c2119a60c78a4714939a87e12df6",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-04-18",
+      "release_date": "2016-04-18",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160418/",
+      "archive_name": "2016-04-18.html",
+      "byte_count": 72440,
+      "sha256": "5e95dde92bac2258fc0cd5c926f7227a27cc4031a4919320ab00f6a3163963db",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-04-25",
+      "release_date": "2016-04-25",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160425/",
+      "archive_name": "2016-04-25.html",
+      "byte_count": 72468,
+      "sha256": "b08e5cab5c36858e9b082c387e1c64d45b86dbcc33ce840175cbd9627d0cab85",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-05-02",
+      "release_date": "2016-05-02",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160502/",
+      "archive_name": "2016-05-02.html",
+      "byte_count": 71627,
+      "sha256": "9c7dbb3c5a5de59a80c70b1470bdab0bd43a0ebf7f3ffe9d6f259da5cfdb20ea",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-05-09",
+      "release_date": "2016-05-09",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160509/",
+      "archive_name": "2016-05-09.html",
+      "byte_count": 72413,
+      "sha256": "4378069f5b9c90b2219a327ba2fa31cbd00cafdf9034cf46b5de4a5721ddf18d",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-05-16",
+      "release_date": "2016-05-16",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160516/",
+      "archive_name": "2016-05-16.html",
+      "byte_count": 72446,
+      "sha256": "f2649768c16cf9aee94010811a036f1e74d0417d44ba13592a58bb5fbb322b87",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-05-23",
+      "release_date": "2016-05-23",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160524/",
+      "archive_name": "2016-05-23.html",
+      "byte_count": 72697,
+      "sha256": "3bb4f7c211abe19e2cfb2a4a335365f535d55a3df320dddfb4f8daf1c1a4c6de",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-05-30",
+      "release_date": "2016-05-31",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160531/",
+      "archive_name": "2016-05-31.html",
+      "byte_count": 72451,
+      "sha256": "147259e43c41dbaafdcd2c489ba39d1a4f06e69e272e1550f709732d2b226ad7",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-06-06",
+      "release_date": "2016-06-06",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160606/",
+      "archive_name": "2016-06-06.html",
+      "byte_count": 72355,
+      "sha256": "bf3d1bd84a6247bffca03c95523f7090fb950d89a38389a72f86d584ee26c75e",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-06-13",
+      "release_date": "2016-06-13",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160613/",
+      "archive_name": "2016-06-13.html",
+      "byte_count": 72698,
+      "sha256": "dc032815adbc3ff6df771836ef43abc4697ac4d217eae30b47d3407a0cf51bda",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-06-20",
+      "release_date": "2016-06-20",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160620/",
+      "archive_name": "2016-06-20.html",
+      "byte_count": 72452,
+      "sha256": "582c696095276fd9d03c34d350edcbd45b3cf71a27c6e863ac6433046daf387c",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-06-27",
+      "release_date": "2016-06-27",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160627/",
+      "archive_name": "2016-06-27.html",
+      "byte_count": 72694,
+      "sha256": "1312b48053ce9d564f6a983ec55d1bdc9af20fb974d8810b092bd9b8e100d0ff",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-07-04",
+      "release_date": "2016-07-05",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160705/",
+      "archive_name": "2016-07-05.html",
+      "byte_count": 72439,
+      "sha256": "47b792b6edb62323e24e9fe70b5eb9d418308295a8223d62ae6f1b39c24809f6",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-07-11",
+      "release_date": "2016-07-11",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160711/",
+      "archive_name": "2016-07-11.html",
+      "byte_count": 72373,
+      "sha256": "e75eccf3883887d92d1ae781cecbc7a0778459a3910542bccf867e3fc4c7b98d",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-07-18",
+      "release_date": "2016-07-18",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160718/",
+      "archive_name": "2016-07-18.html",
+      "byte_count": 72452,
+      "sha256": "26f3c91c74420d08226b91565d877d73cab2a243ef189a9824d7923ef0defd49",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-07-25",
+      "release_date": "2016-07-25",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160725/",
+      "archive_name": "2016-07-25.html",
+      "byte_count": 72452,
+      "sha256": "af62c18da0895c96d85eb881c40a6b6fb0053f35f630bae1d5901ea477b37053",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-08-01",
+      "release_date": "2016-08-01",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160801/",
+      "archive_name": "2016-08-01.html",
+      "byte_count": 72459,
+      "sha256": "938c62bdbd7d68124a0611fb1c584ba2833419c4cc222ba1d8716de0c0217d95",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-08-08",
+      "release_date": "2016-08-08",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160808/",
+      "archive_name": "2016-08-08.html",
+      "byte_count": 72425,
+      "sha256": "4b7191b3751158b9822d5cec8a48b5b0daac475f819b8bdc13528feb2e20c033",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-08-15",
+      "release_date": "2016-08-15",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160815/",
+      "archive_name": "2016-08-15.html",
+      "byte_count": 72709,
+      "sha256": "407e0cb5ab97fcbb8a1b3c41978fb9bd8c9cbb87e97d3b5a6defdf08245426e1",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-08-22",
+      "release_date": "2016-08-22",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160822/",
+      "archive_name": "2016-08-22.html",
+      "byte_count": 72451,
+      "sha256": "4a73897b73cb25527b176e20db38e993b6f1decc56da4c4d32f5dad5da0c5b03",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-08-29",
+      "release_date": "2016-08-29",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160830/",
+      "archive_name": "2016-08-29.html",
+      "byte_count": 72702,
+      "sha256": "8ceaa5623d6880ec7716f4336801e23dd40a572b0a5be084c802b850ab6209ab",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-09-05",
+      "release_date": "2016-09-06",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160906/",
+      "archive_name": "2016-09-06.html",
+      "byte_count": 72446,
+      "sha256": "90948421beacd738efd10c0718e12868106f0d813e582009a966ddba934d4c83",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-09-12",
+      "release_date": "2016-09-12",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160912/",
+      "archive_name": "2016-09-12.html",
+      "byte_count": 72311,
+      "sha256": "2eb59fc90850c3a8b0579fbc15b15049b59998892265a1313b2d78e0d2a429ac",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-09-19",
+      "release_date": "2016-09-19",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160919/",
+      "archive_name": "2016-09-19.html",
+      "byte_count": 72555,
+      "sha256": "1e63e291eb70bf17002e8fb40b7948eb238c89a12821269705249bc1dab87ee9",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    },
+    {
+      "week_start": "2016-09-26",
+      "release_date": "2016-09-26",
+      "source_url": "https://www.federalreserve.gov/releases/h15/20160926/",
+      "archive_name": "2016-09-26.html",
+      "byte_count": 73836,
+      "sha256": "5e4a76548b63e079c045c0322476a18a96a2dbcc5dd876b83612e161f2ae3bd4",
+      "availability_regime": "pre-2017 weekly Monday release; Tuesday after Monday holiday"
+    }
+  ]
+}

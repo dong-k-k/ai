@@ -1,0 +1,27 @@
+{
+  "config_version": 1,
+  "experiment": "usd_krw_with_broad_usd_index_asof_past_covariate",
+  "target": "USD/KRW",
+  "past_covariates": ["DTWEXBGS broad_usd_index point-in-time as-of"],
+  "future_covariates": [],
+  "validation": {
+    "period": "2018-01-01~2021-12-31",
+    "expected_origins": 48,
+    "expected_rows": 960,
+    "context_length": 756,
+    "prediction_length": 20,
+    "device": "mps",
+    "batch_size": 8,
+    "cross_learning": false
+  },
+  "candidate_entry_criteria": {
+    "lower_mae_than_univariate_chronos": true,
+    "lower_rmse_than_univariate_chronos": true,
+    "lower_mae_than_random_walk": true,
+    "lower_rmse_than_random_walk": true,
+    "minimum_origin_mae_wins_vs_univariate": 25,
+    "minimum_origin_rmse_wins_vs_univariate": 25,
+    "all_source_observations_and_safe_dates_must_precede_or_equal_input_dates": true
+  },
+  "test_reuse_policy": "Do not inspect or use 2022-2025 final-test rows in this experiment."
+}
