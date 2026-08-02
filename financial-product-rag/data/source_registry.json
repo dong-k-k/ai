@@ -1,0 +1,227 @@
+[
+  {
+    "source_id": "SRC-001",
+    "title": "KB Star FX 서비스 안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://fx.kbstar.com/quics?page=C110657",
+    "checked_at": "2026-08-02",
+    "scope": "지원상품·대상·플랫폼 특징",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-002",
+    "title": "KB Star FX 이용약관",
+    "source_type": "OFFICIAL_PDF",
+    "url": "https://img2.kbstar.com/obj/ocommon/230317_kbstarfx_terms_n.pdf",
+    "checked_at": "2026-08-02",
+    "scope": "현물환·선물환·MAR·외환스왑 정의",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-003",
+    "title": "KB Star FX 사용자 매뉴얼",
+    "source_type": "OFFICIAL_PDF",
+    "url": "https://img2.kbstar.com/obj/ocommon/240708_kbstarfx_user_manual.pdf",
+    "checked_at": "2026-08-02",
+    "scope": "주문방식·상품 화면·장외파생상품 한도와 서류점검",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-004",
+    "title": "인터넷 선(현)물환 거래안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101981",
+    "checked_at": "2026-08-02",
+    "scope": "선물환 정의",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-005",
+    "title": "KB환율픽 서비스이용안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101935",
+    "checked_at": "2026-08-02",
+    "scope": "목표환율 예약주문·자동체결",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-006",
+    "title": "마이딜링룸Pro 서비스안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101682",
+    "checked_at": "2026-08-02",
+    "scope": "PC 외환거래 플랫폼 특징",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-007",
+    "title": "기업 외화예금상품 HOME",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101930",
+    "checked_at": "2026-08-02",
+    "scope": "현재 판매·추천 외화예금 목록",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-008",
+    "title": "KB수출입기업우대 외화통장 상품안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?QSL=&cc=b102196%3Ab103478&page=C101932&%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%83%81%ED%92%88%EB%AA%85=KB%EC%88%98%EC%B6%9C%EC%9E%85%EA%B8%B0%EC%97%85%EC%9A%B0%EB%8C%80%EC%99%B8%ED%99%94%ED%86%B5%EC%9E%A5&%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%83%81%ED%92%88%EC%BD%94%EB%93%9C=FD01000948",
+    "checked_at": "2026-08-02",
+    "scope": "대상·통화·우대 조건",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-009",
+    "title": "KB WISE 외화정기예금 상품안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?QSL=&cc=b102196%3Ab103478&page=C101932&%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%83%81%ED%92%88%EB%AA%85=KB+WISE+%EC%99%B8%ED%99%94%EC%A0%95%EA%B8%B0%EC%98%88%EA%B8%88&%EB%B8%8C%EB%9E%9C%EB%93%9C%EC%83%81%ED%92%88%EC%BD%94%EB%93%9C=FD01000955",
+    "checked_at": "2026-08-02",
+    "scope": "통화·금액·기간·회전주기·추가입금",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-010",
+    "title": "KB 기업뱅킹 수출입 서비스 메뉴",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C105749",
+    "checked_at": "2026-08-02",
+    "scope": "수입L/C·L/G·수출환어음·Payment Usance·글로벌구매론·내국신용장·무역금융·EDI 서비스 존재",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-011",
+    "title": "KB국민은행 특별출연 수출입 금융지원 안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101674",
+    "checked_at": "2026-08-02",
+    "scope": "2025~2030 수출패키지 우대금융·K-SURE·Payment Usance·수출환어음·무역금융",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-012",
+    "title": "KB 기업대출 기타대출상품 목록",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C016287",
+    "checked_at": "2026-08-02",
+    "scope": "KB 수출기업 우대대출 현재 상품 확인",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-013",
+    "title": "KB Payment Usance 서비스 소개",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C102065",
+    "checked_at": "2026-08-02",
+    "scope": "상품 구조·만기·한도 활용",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-014",
+    "title": "해외거래처 신용조사",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C101670",
+    "checked_at": "2026-08-02",
+    "scope": "제공 정보와 상담 안내",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-015",
+    "title": "KB OneTrade 서비스 종료 사전 안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?articleId=118079&bbsMode=view&boardId=768&page=C025030",
+    "checked_at": "2026-08-02",
+    "scope": "KB OneTrade 종료 확인",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-016",
+    "title": "외화예금 보호금융상품 등록부",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://obiz.kbstar.com/quics?page=C023865",
+    "checked_at": "2026-08-02",
+    "scope": "KB외화MMDA 명칭 존재·기업 추천 적합성은 별도 확인",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-017",
+    "title": "KB FX/파생상품 거래안내 및 환위험 관리 안내",
+    "source_type": "USER_UPLOADED_OFFICIAL_PDF",
+    "url": "sources/kb_fx_derivatives_and_risk_management.pdf",
+    "checked_at": "2026-08-02",
+    "scope": "선물환·통화옵션·합성선물환, 장외파생상품 8단계 절차, 실수요 증빙, 환위험 관리기법",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-018",
+    "title": "KB 인터넷 선(현)물환 거래 이용약관",
+    "source_type": "USER_UPLOADED_OFFICIAL_PDF",
+    "url": "sources/kb_internet_spot_forward_terms.pdf",
+    "checked_at": "2026-08-02",
+    "scope": "선·현물환 정의, 이용절차, 거래한도, 시가평가, 반대거래, 결제, 조기결제와 취소 제한",
+    "provider": "KB국민은행"
+  },
+  {
+    "source_id": "SRC-019",
+    "title": "K-SURE 환변동보험 제도개요",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-fx/cntnts/i-512/dir.do",
+    "checked_at": "2026-08-02",
+    "scope": "제도 목적, 수출입 환위험, 차액정산, 일반 특징",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-020",
+    "title": "K-SURE 환변동보험(선물환) 안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-fx/cntnts/i-517/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "일반형 구조, 헤지기간, 비용, 조기결제, 수출·수입 손익구조",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-021",
+    "title": "K-SURE 환변동보험(옵션형) 안내",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-kr/cntnts/i-264/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "부분·완전보장 옵션형, 대상통화, 최소금액, 기간, 조기결제 제한",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-022",
+    "title": "K-SURE 환변동보험 이용요건",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-fx/cntnts/i-514/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "중소·중견기업 요건, 대상통화, 제한기업, 수입 추가요건",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-023",
+    "title": "K-SURE 환변동보험 이용절차",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-fx/cntnts/i-516/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "한도책정, 13시 청약, 증권발급, 결제통지, 보험금·이익금 정산",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-024",
+    "title": "K-SURE 환변동보험 신청서류",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-kr/cntnts/i-254/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "인수한도 신청서, 헤지수요조사표, 약정서, 거래내역 확인서, 동의서",
+    "provider": "K-SURE(한국무역보험공사)"
+  },
+  {
+    "source_id": "SRC-025",
+    "title": "K-SURE 환변동보험 보험료",
+    "source_type": "OFFICIAL_WEB",
+    "url": "https://www.ksure.or.kr/rh-fx/cntnts/i-515/web.do",
+    "checked_at": "2026-08-02",
+    "scope": "일반형 할인, 옵션형 기본요율·옵션프리미엄, 기간별 기본요율",
+    "provider": "K-SURE(한국무역보험공사)"
+  }
+]
