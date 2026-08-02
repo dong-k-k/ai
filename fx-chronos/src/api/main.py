@@ -9,7 +9,13 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 
 from src.api.forecast_service import ForecastService
 from src.api.scheduler import create_scheduler
-from src.api.schemas import ApiExposureSide, HedgeAnalysisRequest, HedgeAnalysisResponse
+from src.api.schemas import (
+    ApiExposureSide,
+    ForecastPointResponse,
+    FxForecastResponse,
+    HedgeAnalysisRequest,
+    HedgeAnalysisResponse,
+)
 from src.hedging.hedge_analysis import ExposureSide, FxExposure, analyze_fx_exposure
 
 
@@ -74,6 +80,52 @@ def create_app(
         except Exception:
             LOGGER.exception("Unexpected hedge analysis failure")
             raise HTTPException(status_code=500, detail="Internal hedge analysis failure") from None
+
+    @application.get(
+        "/internal/fx-forecast",
+        response_model=FxForecastResponse,
+    )
+    def fx_forecast(
+        active_service: ForecastService = Depends(get_forecast_service),
+    ) -> FxForecastResponse:
+        try:
+            generated_at, forecast = active_service.h90_forecast()
+            if (
+                forecast.lower_scenario is None
+                or forecast.median_scenario is None
+                or forecast.upper_scenario is None
+            ):
+                raise RuntimeError("H90 예측에 분위수 시나리오가 없습니다.")
+            points = tuple(
+                ForecastPointResponse(
+                    date=forecast_date,
+                    point=point,
+                    lower=lower,
+                    median=median,
+                    upper=upper,
+                )
+                for forecast_date, point, lower, median, upper in zip(
+                    forecast.forecast_dates,
+                    forecast.point_forecast,
+                    forecast.lower_scenario,
+                    forecast.median_scenario,
+                    forecast.upper_scenario,
+                    strict=True,
+                )
+            )
+            return FxForecastResponse(
+                currency_pair=forecast.currency_pair,
+                forecast_origin=forecast.forecast_origin,
+                horizon=forecast.prediction_length,
+                unit=forecast.unit,
+                model_name=forecast.model_name,
+                generated_at=generated_at,
+                forecast=points,
+                warnings=(forecast.warning.strip(),),
+            )
+        except Exception:
+            LOGGER.exception("Unexpected forecast service failure")
+            raise HTTPException(status_code=500, detail="Internal forecast service failure") from None
 
     return application
 

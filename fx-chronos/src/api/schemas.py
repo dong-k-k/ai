@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -63,4 +63,23 @@ class HedgeAnalysisResponse(BaseModel):
     forecast_model_name: str
     scenario_source: str
     scenarios: tuple[ScenarioAmountResponse, ...]
+    warnings: tuple[str, ...]
+
+
+class ForecastPointResponse(BaseModel):
+    date: date
+    point: float
+    lower: float
+    median: float
+    upper: float
+
+
+class FxForecastResponse(BaseModel):
+    currency_pair: str
+    forecast_origin: date
+    horizon: int
+    unit: str
+    model_name: str
+    generated_at: datetime
+    forecast: tuple[ForecastPointResponse, ...]
     warnings: tuple[str, ...]
