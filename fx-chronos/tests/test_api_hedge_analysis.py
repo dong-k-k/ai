@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 from fastapi.testclient import TestClient
 
-from src.api.forecast_service import ForecastService, ForecastSnapshot
+from src.api.forecast_service import ALPHA, ForecastService, ForecastSnapshot
 from src.api.main import create_app
 from src.api.scheduler import create_scheduler, reload_forecasts_safely
 from src.hedging.forecast_provider import ForecastScenario, ScenarioSource
@@ -195,6 +195,12 @@ class ForecastServiceLoadingTest(unittest.TestCase):
         service.initialize()
         self.assertEqual(len(calls), 1)
         self.assertEqual(set(service.snapshot.forecasts), {20, 60, 90})
+        expected_point = service.snapshot.last_observation_value + ALPHA * (
+            1500.0 - service.snapshot.last_observation_value
+        )
+        self.assertAlmostEqual(
+            service.snapshot.forecasts[90].point_forecast[0], expected_point
+        )
 
     def test_failed_reload_keeps_previous_snapshot(self) -> None:
         service = ForecastService(pipeline_loader=lambda *_: FakePipeline(), device="cpu")

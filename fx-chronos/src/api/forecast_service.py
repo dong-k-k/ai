@@ -25,7 +25,7 @@ DEFAULT_DATA_PATH = (
 )
 MODEL_ID = "amazon/chronos-2"
 CONTEXT_LENGTH = 756
-ALPHA = 0.5
+ALPHA = 1.0
 HORIZONS = (20, 60, 90)
 SEOUL = ZoneInfo("Asia/Seoul")
 FORECAST_WARNING = (
@@ -160,7 +160,7 @@ class ForecastService:
                 )
             )
             forecasts[horizon] = ForecastScenario(
-                model_name=f"{MODEL_ID} + Random Walk fixed alpha={ALPHA} H{horizon}",
+                model_name=f"{MODEL_ID} q0.5 alpha={ALPHA} H{horizon}",
                 scenario_source=ScenarioSource.SHRUNK_ENSEMBLE,
                 currency_pair="USD/KRW",
                 unit="KRW per USD",

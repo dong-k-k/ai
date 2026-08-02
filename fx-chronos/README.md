@@ -2,7 +2,7 @@
 
 한국은행 ECOS의 USD/KRW 일별 매매기준율을 Amazon Chronos-2로 예측하고, Random Walk와 결합한 환율 경로를 평가하는 프로젝트입니다.
 
-현재 서비스 후보는 USD/KRW의 향후 20·60·90개 실제 환율 관측값입니다. 최종 점 예측은 Chronos-2 Zero-shot과 Random Walk를 50:50으로 결합한 고정 `α=0.5` 축소 앙상블입니다.
+현재 서비스 후보는 USD/KRW의 향후 20·60·90개 실제 환율 관측값입니다.
 
 ## 구현 범위
 
@@ -13,7 +13,7 @@
 | 예측 기간 | 20·60·90개 실제 평일 관측 |
 | 기준 모델 | Random Walk |
 | 시계열 모델 | `amazon/chronos-2` Zero-shot |
-| 최종 점 예측 | Random Walk와 Chronos-2의 고정 `α=0.5` 축소 앙상블 |
+| 최종 점 예측 | Chronos-2 q0.5 중앙 예측 90%인 `α=0.9` 설정 |
 | 입력 길이 | 최근 756개 관측 |
 | 실행 장치 | Apple Silicon MPS |
 | 평가 | 시간순 Walk-forward, MAE, RMSE, 방향 정확도, 기준일별 성능 |
@@ -58,18 +58,16 @@ Random Walk는 마지막 실제 관측값을 모든 미래 step에 유지합니�
 ```text
 ensemble(h)
 = last_observation
-+ 0.5 × [chronos_median(h) - last_observation]
++ 0.9 × [chronos_median(h) - last_observation]
 ```
 
 동일한 식을 가중치로 표현하면 다음과 같습니다.
 
 ```text
 ensemble(h)
-= 0.5 × Random Walk(h)
-+ 0.5 × Chronos-2 median(h)
+= 0.1 × Random Walk(h)
++ 0.9 × Chronos-2 median(h)
 ```
-
-`α=0.5`는 2018~2021의 20영업일 Validation에서 선택됐으며 60·90영업일 평가에서는 다시 선택하지 않았습니다.
 
 ## 성능
 
@@ -310,19 +308,19 @@ curl -X POST http://127.0.0.1:8000/internal/hedge-analysis \
   "unhedged_amount": 500000.0,
   "hedge_ratio": 0.5,
   "risk_direction": "환율 상승 시 원화 지급액 증가로 불리",
-  "forecast_model_name": "amazon/chronos-2 + Random Walk fixed alpha=0.5 H90",
+  "forecast_model_name": "amazon/chronos-2 q0.5 alpha=1.0 H90",
   "scenario_source": "shrunk_ensemble",
   "scenarios": [
     {
       "scenario_name": "point",
-      "fx_rate": 1451.8048,
+      "fx_rate": 1453.5095,
       "hedged_krw_amount": 774200000.0,
-      "unhedged_krw_amount": 725902380.0,
-      "total_krw_amount": 1500102380.0,
-      "fully_unhedged_krw_amount": 1451804760.0,
+      "unhedged_krw_amount": 726754761.0,
+      "total_krw_amount": 1500954761.0,
+      "fully_unhedged_krw_amount": 1453509521.0,
       "reference_krw_amount": 1548400000.0,
-      "favorable_pnl_vs_reference_krw": 48297620.0,
-      "hedge_effect_vs_unhedged_krw": -48297620.0
+      "favorable_pnl_vs_reference_krw": 47445239.0,
+      "hedge_effect_vs_unhedged_krw": -47445239.0
     }
   ],
   "warnings": ["Chronos 분위수는 참고용 시나리오입니다."]
@@ -338,7 +336,7 @@ PAYABLE   → 기존 ExposureSide.PAYMENT
 RECEIVABLE → 기존 ExposureSide.RECEIPT
 ```
 
-서버 시작 시 Chronos-2를 한 번 로딩하고 동일한 최근 756개 관측에서 H20·H60·H90을 각각 생성합니다. 각 경로에 고정 `α=0.5` 앙상블을 적용한 뒤 하나의 메모리 스냅샷으로 보관합니다. 요청은 결제일을 포함하는 가장 짧은 horizon을 H20, H60, H90 순으로 선택합니다.
+서버 시작 시 Chronos-2를 한 번 로딩하고 동일한 최근 756개 관측에서 H20·H60·H90을 각각 생성합니다. 각 경로의 q0.5를 예측으로 사용한 뒤 하나의 메모리 스냅샷으로 보관합니다. 요청은 결제일을 포함하는 가장 짧은 horizon을 H20, H60, H90 순으로 선택합니다.
 
 매일 `03:00 Asia/Seoul`에 새 모델과 예측 스냅샷을 준비합니다. 전체 생성이 성공한 뒤에만 메모리 참조를 교체하고 실패하면 기존 정상 스냅샷을 유지하며 로그를 남깁니다. 로컬 데이터 파일이 갱신되지 않았다면 같은 입력을 다시 예측합니다. ECOS 자동 수집은 이 스케줄에 포함되지 않습니다.
 
@@ -394,7 +392,6 @@ AWS 배포, 내부 인증, 상태 확인 API, 백엔드·프론트엔드 연동�
 - USD/KRW ECOS 수집과 원본 보존
 - 주말 감사 분리와 무보간 모델 데이터
 - Chronos-2 Zero-shot 및 Random Walk
-- 고정 `α=0.5` 축소 앙상블
 - 20·60·90영업일 Walk-forward 평가
 - 분위수 참고 시나리오
 - USD 지급·수취 환위험 계산 모듈
